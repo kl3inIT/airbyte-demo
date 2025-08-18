@@ -23,9 +23,12 @@
 
         @Nullable
         public static DatabaseType fromId(String id) {
-
+            if (id == null) {
+                return null;
+            }
+            String normalized = id.trim();
             for (DatabaseType at : DatabaseType.values()) {
-                if (at.getId().equals(id)) {
+                if (at.getId().equalsIgnoreCase(normalized) || at.name().equalsIgnoreCase(normalized)) {
                     return at;
                 }
             }

@@ -78,6 +78,9 @@ public class AirbyteService {
         try {
             SourceConfiguration config;
             DatabaseType type = DatabaseType.fromId(dbTYpe);
+            if (type == null) {
+                throw new IllegalArgumentException("Unsupported or null database type: " + dbTYpe);
+            }
             switch (type) {
                 case POSTGRES -> config = SourceConfiguration.of(SourcePostgres.builder()
                         .database(database)

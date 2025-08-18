@@ -43,6 +43,7 @@ public class SourceListView extends StandardListView<Source> {
     @Autowired
     private DataManager dataManager;
 
+
     @Subscribe("sourcesDataGrid.createDb")
     public void onCreateDb(ActionPerformedEvent e) {
         viewNavigators.detailView(sourcesDataGrid)
