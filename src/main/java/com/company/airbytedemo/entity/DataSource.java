@@ -11,11 +11,18 @@ import java.util.UUID;
 @JmixEntity
 @Table(name = "DATA_SOURCE")
 @Entity
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue("DB_SOURCE")
 public class DataSource {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Version
+    @Column(name = "VERSION", nullable = false)
+    private Integer version;
 
     @InstanceName
     @Column(name = "NAME", nullable = false)
@@ -28,16 +35,16 @@ public class DataSource {
     @Column(name = "AIRBYTE_SOURCE_ID", length = 100)
     private String airbyteSourceId;
 
-    @Column(name = "CONFIGURATION")
+    @Column(name = "RAW_CONFIGURATION")
     @Lob
-    private String configuration;
+    private String rawConfiguration;
 
-    public String getConfiguration() {
-        return configuration;
+    public String getRawConfiguration() {
+        return rawConfiguration;
     }
 
-    public void setConfiguration(String configuration) {
-        this.configuration = configuration;
+    public void setRawConfiguration(String configuration) {
+        this.rawConfiguration = configuration;
     }
 
     public String getAirbyteSourceId() {

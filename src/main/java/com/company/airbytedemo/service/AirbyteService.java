@@ -144,6 +144,33 @@ public class AirbyteService {
         return null;
     }
 
+    public SourceResponse createFileSource(String name, String datasetName, String url) {
+        try {
+            SourceConfiguration config = SourceConfiguration.of(SourceFile.builder()
+                            .datasetName(datasetName)
+                            .format(FileFormat.JSON)
+                            .provider(StorageProvider.of(HTTPSPublicWeb.builder().build()))
+                            .url(url)
+                    .build());
+
+            SourceCreateRequest req = SourceCreateRequest.builder()
+                    .configuration(config)
+                    .name(name)
+                    .workspaceId(workspaceId)
+                    .build();
+
+            CreateSourceResponse res = airbyte.sources().createSource()
+                    .request(req)
+                    .call();
+
+            if (res.sourceResponse().isPresent()) {
+                return res.sourceResponse().get();
+            }
+        } catch (Exception e) {
+            log.error("Failed to create file source in Airbyte", e);
+        }
+        return null;
+    }
 
 }
 
