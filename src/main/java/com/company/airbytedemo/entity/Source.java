@@ -9,12 +9,12 @@ import jakarta.validation.constraints.NotNull;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "DATA_SOURCE")
+@Table(name = "SOURCE")
 @Entity
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorValue("DB_SOURCE")
-public class DataSource {
+@DiscriminatorValue("SOURCE")
+public class Source {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -38,6 +38,50 @@ public class DataSource {
     @Column(name = "RAW_CONFIGURATION")
     @Lob
     private String rawConfiguration;
+
+    @Column(name = "SOUCE_TYPE")
+    private String souceType;
+
+    @Column(name = "CREATE_AT")
+    private Long createAt;
+
+    @Column(name = "DEFINITION_ID")
+    private String definitionId;
+
+    @Column(name = "WORKSPACE_ID")
+    private String workspaceId;
+
+    public String getWorkspaceId() {
+        return workspaceId;
+    }
+
+    public void setWorkspaceId(String workspaceId) {
+        this.workspaceId = workspaceId;
+    }
+
+    public String getDefinitionId() {
+        return definitionId;
+    }
+
+    public void setDefinitionId(String definitionId) {
+        this.definitionId = definitionId;
+    }
+
+    public Long getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Long createAt) {
+        this.createAt = createAt;
+    }
+
+    public SourceType getSouceType() {
+        return souceType == null ? null : SourceType.fromId(souceType);
+    }
+
+    public void setSouceType(SourceType souceType) {
+        this.souceType = souceType == null ? null : souceType.getId();
+    }
 
     public String getRawConfiguration() {
         return rawConfiguration;

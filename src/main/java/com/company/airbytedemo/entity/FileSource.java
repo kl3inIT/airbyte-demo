@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 @Entity
 @PrimaryKeyJoinColumn(name = "ID")
 @Table(name = "FILE_SOURCE")
-public class FileSource extends DataSource {
+public class FileSource extends Source {
 
     @Column(name = "DATASET_NAME")
     private String datasetName;

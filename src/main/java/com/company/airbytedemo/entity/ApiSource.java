@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @PrimaryKeyJoinColumn(name = "ID")
 @Table(name = "API_SOURCE")
-public class ApiSource extends DataSource {
+public class ApiSource extends Source {
     @Column(name = "DECLARATIVE_MANIFEST_JSON")
     @Lob
     private String declarativeManifestJson;

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 @DiscriminatorValue("DATABASE")
 @PrimaryKeyJoinColumn(name = "ID")
 @Table(name = "DATABASE_SOURCE")
-public class DatabaseSource extends DataSource {
+public class DatabaseSource extends Source {
 
     @NotNull
     @Column(name = "DB_TYPE")
@@ -23,6 +23,7 @@ public class DatabaseSource extends DataSource {
     @Column(name = "PORT")
     private Long port;
 
+    @NotNull
     @Column(name = "DATABASE_")
     private String database;
 
@@ -30,6 +31,7 @@ public class DatabaseSource extends DataSource {
     @Column(name = "USERNAME")
     private String username;
 
+    @NotNull
     @Column(name = "PASSWORD")
     private String password;
 
