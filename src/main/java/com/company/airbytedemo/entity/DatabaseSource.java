@@ -1,14 +1,14 @@
 package com.company.airbytedemo.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @JmixEntity
 @Entity
 @DiscriminatorValue("DATABASE")
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "DATABASE_SOURCE")
 public class DatabaseSource extends DataSource {
 
     @NotNull

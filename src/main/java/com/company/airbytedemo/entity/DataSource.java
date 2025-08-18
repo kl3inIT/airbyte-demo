@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "DATA_SOURCE")
 @Entity
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorValue("DB_SOURCE")
 public class DataSource {
     @JmixGeneratedValue
@@ -79,4 +79,11 @@ public class DataSource {
         this.id = id;
     }
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

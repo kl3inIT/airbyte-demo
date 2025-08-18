@@ -1,13 +1,13 @@
 package com.company.airbytedemo.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @DiscriminatorValue("FILE")
 @JmixEntity
 @Entity
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "FILE_SOURCE")
 public class FileSource extends DataSource {
 
     @Column(name = "DATASET_NAME")

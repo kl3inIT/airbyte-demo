@@ -1,12 +1,12 @@
 package com.company.airbytedemo.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 
 @JmixEntity
 @Entity
+@PrimaryKeyJoinColumn(name = "ID")
+@Table(name = "API_SOURCE")
 public class ApiSource extends DataSource {
     @Column(name = "DECLARATIVE_MANIFEST_JSON")
     @Lob
