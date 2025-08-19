@@ -23,6 +23,23 @@ public class AirbyteService {
     @Value("${airbyte.workspace.id}")
     private String workspaceId;
 
+    @Value("${airbyte.dest.s3.name:MinIO-dest}")
+    private String s3DestName;
+
+    @Value("${airbyte.dest.s3.access-key}")
+    private String s3AccessKey;
+
+    @Value("${airbyte.dest.s3.secret-key}")
+    private String s3SecretKey;
+
+    @Value("${airbyte.dest.s3.bucket}")
+    private String s3Bucket;
+
+
+    // API endpoint MinIO: http://host:9000  (KHÔNG phải 9001)
+    @Value("${airbyte.dest.s3.endpoint}")
+    private String s3Endpoint;
+
     public AirbyteService(Airbyte airbyte) {
         this.airbyte = airbyte;
     }
@@ -182,6 +199,36 @@ public class AirbyteService {
         }
         return null;
     }
+
+    public DestinationResponse createDestination(String s3DestName, String s3BucketPath) {
+        DestinationCreateRequest req = DestinationCreateRequest.builder()
+                .name(s3DestName)
+                .workspaceId(workspaceId)
+                .configuration(DestinationConfiguration.of(DestinationS3.builder()
+                        .accessKeyId(s3AccessKey)
+                        .secretAccessKey(s3SecretKey)
+                        .s3BucketName(s3Bucket)
+                        .s3BucketRegion(DestinationS3S3BucketRegion.US_EAST1)
+                        .s3Endpoint(s3Endpoint)
+                        .s3BucketPath(s3BucketPath)
+                        .build()))
+                .build();
+        CreateDestinationResponse res = null;
+        try {
+            res = airbyte.destinations().createDestination()
+                    .request(req)
+                    .call();
+        } catch (Exception e) {
+            log.error("Failed to create destination in Airbyte", e);
+            return null;
+        }
+
+        if (res.destinationResponse().isPresent()) {
+            return res.destinationResponse().get();
+        }
+        return null;
+    }
+
 
 }
 
