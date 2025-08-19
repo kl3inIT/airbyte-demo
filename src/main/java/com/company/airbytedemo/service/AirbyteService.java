@@ -147,13 +147,21 @@ public class AirbyteService {
         return null;
     }
 
-    public SourceResponse createFileSource(String name, String datasetName, String url) {
+    public SourceResponse createFileSource(String name, String datasetName, String url, String format, String provider) {
         try {
+            StorageProvider storageProvider = null;
+
+            switch (provider.toLowerCase().trim()) {
+                case "https" -> storageProvider = StorageProvider.of(HTTPSPublicWeb.builder().build());
+                case "sftp" -> storageProvider = StorageProvider.of(SFTPSecureFileTransferProtocol.builder().build());
+                default -> throw new IllegalArgumentException("Unsupported provider: " + provider);
+            }
+
             SourceConfiguration config = SourceConfiguration.of(SourceFile.builder()
-                            .datasetName(datasetName)
-                            .format(FileFormat.JSON)
-                            .provider(StorageProvider.of(HTTPSPublicWeb.builder().build()))
-                            .url(url)
+                    .datasetName(datasetName)
+                    .format(FileFormat.fromValue(format))
+                    .provider(storageProvider)
+                    .url(url)
                     .build());
 
             SourceCreateRequest req = SourceCreateRequest.builder()

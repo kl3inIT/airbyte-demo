@@ -60,7 +60,7 @@
             <columns resizable="true">
                 <column property="name"/>
                 <column property="description"/>
-                <column property="souceType"/>
+                <column property="sourceType"/>
                 <column property="createAt"/>
                 <column property="airbyteSourceId"/>
                 <column property="definitionId"/>

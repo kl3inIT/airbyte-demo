@@ -1,7 +1,9 @@
-package com.company.airbytedemo.view.databasesource;
+package com.company.airbytedemo.view.filesource;
 
+import com.airbyte.api.models.shared.File;
 import com.airbyte.api.models.shared.SourceResponse;
 import com.company.airbytedemo.entity.DatabaseSource;
+import com.company.airbytedemo.entity.FileSource;
 import com.company.airbytedemo.entity.SourceType;
 import com.company.airbytedemo.service.AirbyteService;
 import com.company.airbytedemo.view.main.MainView;
@@ -13,11 +15,11 @@ import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "database-sources/:id", layout = MainView.class)
-@ViewController(id = "DatabaseSource.detail")
-@ViewDescriptor(path = "database-source-detail-view.xml")
-@EditedEntityContainer("databaseSourceDc")
-public class DatabaseSourceDetailView extends StandardDetailView<DatabaseSource> {
+@Route(value = "file-sources/:id", layout = MainView.class)
+@ViewController(id = "FileSource.detail")
+@ViewDescriptor(path = "file-source-detail-view.xml")
+@EditedEntityContainer("fileSourceDc")
+public class FileSourceDetailView extends StandardDetailView<FileSource> {
 
     @Autowired
     private AirbyteService airbyteService;
@@ -43,22 +45,22 @@ public class DatabaseSourceDetailView extends StandardDetailView<DatabaseSource>
     }
 
     private void saveEntity() {
-        DatabaseSource databaseSource = getEditedEntity();
-        SourceResponse res = airbyteService.createDatabaseSource(
-                databaseSource.getName(),
-                databaseSource.getDbType().getId(),
-                databaseSource.getDatabase(),
-                databaseSource.getHost(),
-                databaseSource.getPort(),
-                databaseSource.getUsername(),
-                databaseSource.getPassword()
-        );
-        databaseSource.setSourceType(SourceType.DATABASE);
-        databaseSource.setAirbyteSourceId(res.sourceId());
-        databaseSource.setCreateAt(res.createdAt());
-        databaseSource.setDefinitionId(res.definitionId());
-        databaseSource.setWorkspaceId(res.workspaceId());
-        dataManager.save(databaseSource);
-    }
+        FileSource fileSource = getEditedEntity();
 
+        SourceResponse res = airbyteService.createFileSource(
+                fileSource.getName(),
+                fileSource.getDatasetName(),
+                fileSource.getUrl(),
+                fileSource.getFormat().getId(),
+                fileSource.getProvider().getId()
+        );
+
+        fileSource.setSourceType(SourceType.FILE);
+        fileSource.setAirbyteSourceId(res.sourceId());
+        fileSource.setCreateAt(res.createdAt());
+        fileSource.setDefinitionId(res.definitionId());
+        fileSource.setWorkspaceId(res.workspaceId());
+        dataManager.save(fileSource);
+
+    }
 }

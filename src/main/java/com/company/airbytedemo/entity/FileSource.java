@@ -2,6 +2,7 @@ package com.company.airbytedemo.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @DiscriminatorValue("FILE")
 @JmixEntity
@@ -10,17 +11,37 @@ import jakarta.persistence.*;
 @Table(name = "FILE_SOURCE")
 public class FileSource extends Source {
 
-    @Column(name = "DATASET_NAME")
+    @NotNull
+    @Column(name = "DATASET_NAME", nullable = false)
     private String datasetName;
 
-    @Column(name = "FORMAT")
+    @NotNull
+    @Column(name = "FILE_FORMAT", nullable = false)
     private String format;
 
-    @Column(name = "PROVIDER")
+    @Column(name = "FILE_PROVIDER", nullable = false)
+    @NotNull
     private String provider;
 
-    @Column(name = "URL")
+    @NotNull
+    @Column(name = "URL", nullable = false)
     private String url;
+
+    public FileProvider getProvider() {
+        return provider == null ? null : FileProvider.fromId(provider);
+    }
+
+    public void setProvider(FileProvider fileProvider) {
+        this.provider = fileProvider == null ? null : fileProvider.getId();
+    }
+
+    public FileFormat getFormat() {
+        return format == null ? null : FileFormat.fromId(format);
+    }
+
+    public void setFormat(FileFormat fileFormat) {
+        this.format = fileFormat == null ? null : fileFormat.getId();
+    }
 
     public String getUrl() {
         return url;
@@ -28,22 +49,6 @@ public class FileSource extends Source {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
-        this.provider = provider;
-    }
-
-    public FileFormat getFormat() {
-        return format == null ? null : FileFormat.fromId(format);
-    }
-
-    public void setFormat(FileFormat format) {
-        this.format = format == null ? null : format.getId();
     }
 
     public String getDatasetName() {

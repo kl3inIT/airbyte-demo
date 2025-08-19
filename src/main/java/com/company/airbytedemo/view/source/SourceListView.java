@@ -5,6 +5,7 @@ import com.company.airbytedemo.entity.Source;
 import com.company.airbytedemo.entity.SourceType;
 import com.company.airbytedemo.service.AirbyteService;
 import com.company.airbytedemo.view.databasesource.DatabaseSourceDetailView;
+import com.company.airbytedemo.view.filesource.FileSourceDetailView;
 import com.company.airbytedemo.view.main.MainView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClickEvent;
@@ -66,7 +67,7 @@ public class SourceListView extends StandardListView<Source> {
 
             source.setAirbyteSourceId(src.sourceId());
             source.setName(src.name());
-            source.setSouceType(SourceType.fromId(src.sourceType()));
+            source.setSourceType(SourceType.fromId(src.sourceType()));
             source.setCreateAt(src.createdAt());
             source.setDefinitionId(src.definitionId());
             source.setWorkspaceId(src.workspaceId());
@@ -81,14 +82,13 @@ public class SourceListView extends StandardListView<Source> {
 
     }
 
-
-//    @Subscribe("sourcesDataGrid.createFile")
-//    public void onCreateFile(ActionPerformedEvent e) {
-//        viewNavigators.detailView(sourcesDataGrid)
-//                .withViewClass(FileSourceDetailView.class)
-//                .newEntity()
-//                .navigate();
-//    }
+    @Subscribe("sourcesDataGrid.createFile")
+    public void onCreateFile(ActionPerformedEvent e) {
+        viewNavigators.detailView(sourcesDataGrid)
+                .withViewClass(FileSourceDetailView.class)
+                .newEntity()
+                .navigate();
+    }
 //
 //    @Subscribe("sourcesDataGrid.createApi")
 //    public void onCreateApi(ActionPerformedEvent e) {

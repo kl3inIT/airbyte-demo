@@ -39,8 +39,8 @@ public class Source {
     @Lob
     private String rawConfiguration;
 
-    @Column(name = "SOUCE_TYPE")
-    private String souceType;
+    @Column(name = "SOURCE_TYPE")
+    private String sourceType;
 
     @Column(name = "CREATE_AT")
     private Long createAt;
@@ -50,6 +50,14 @@ public class Source {
 
     @Column(name = "WORKSPACE_ID")
     private String workspaceId;
+
+    public SourceType getSourceType() {
+        return sourceType == null ? null : SourceType.fromId(sourceType);
+    }
+
+    public void setSourceType(SourceType sourceType) {
+        this.sourceType = sourceType == null ? null : sourceType.getId();
+    }
 
     public String getWorkspaceId() {
         return workspaceId;
@@ -73,14 +81,6 @@ public class Source {
 
     public void setCreateAt(Long createAt) {
         this.createAt = createAt;
-    }
-
-    public SourceType getSouceType() {
-        return souceType == null ? null : SourceType.fromId(souceType);
-    }
-
-    public void setSouceType(SourceType souceType) {
-        this.souceType = souceType == null ? null : souceType.getId();
     }
 
     public String getRawConfiguration() {
