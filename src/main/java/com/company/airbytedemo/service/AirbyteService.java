@@ -211,6 +211,7 @@ public class AirbyteService {
                         .s3BucketRegion(DestinationS3S3BucketRegion.US_EAST1)
                         .s3Endpoint(s3Endpoint)
                         .s3BucketPath(s3BucketPath)
+                                .format(DestinationS3OutputFormat.of(DestinationS3JSONLinesNewlineDelimitedJSON.builder().build()))
                         .build()))
                 .build();
         CreateDestinationResponse res = null;

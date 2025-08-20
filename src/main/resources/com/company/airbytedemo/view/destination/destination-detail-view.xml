@@ -28,68 +28,61 @@
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
             <textField id="nameField" property="name"/>
-            <textField id="dtoDestinationNameField"
-                       dataContainer="destinationS3DTODc"
-                       property="destinationName"
-                       label="Display Name"
-                       required="true"
-                       requiredMessage="Destination name is required"/>
+<!--            <textField id="accessKeyIdField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="accessKeyId"-->
+<!--                       label="Access Key ID"/>-->
 
-            <textField id="accessKeyIdField"
-                       dataContainer="destinationS3DTODc"
-                       property="accessKeyId"
-                       label="Access Key ID"/>
+<!--            <passwordField id="secretAccessKeyField"-->
+<!--                           dataContainer="destinationS3DTODc"-->
+<!--                           property="secretAccessKey"-->
+<!--                           label="Secret Access Key"/>-->
 
-            <passwordField id="secretAccessKeyField"
-                           dataContainer="destinationS3DTODc"
-                           property="secretAccessKey"
-                           label="Secret Access Key"/>
-
-            <textField id="s3BucketNameField"
-                       dataContainer="destinationS3DTODc"
-                       property="s3BucketName"
-                       label="S3 Bucket Name"
-                       required="true"
-                       requiredMessage="Bucket name is required"/>
+<!--            <textField id="s3BucketNameField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="s3BucketName"-->
+<!--                       label="S3 Bucket Name"-->
+<!--                       required="true"-->
+<!--                       requiredMessage="Bucket name is required"/>-->
 
             <textField id="s3BucketPathField"
                        dataContainer="destinationS3DTODc"
                        property="s3BucketPath"
                        label="S3 Bucket Path"/>
 
-            <!-- Enum: DestinationS3S3BucketRegion -->
-            <comboBox id="s3BucketRegionField"
-                      dataContainer="destinationS3DTODc"
-                      property="s3BucketRegion"
-                      label="S3 Bucket Region"
-                      required="true"
-                      requiredMessage="Region is required"/>
+<!--            &lt;!&ndash; Enum: DestinationS3S3BucketRegion &ndash;&gt;-->
+<!--            <comboBox id="s3BucketRegionField"-->
+<!--                      dataContainer="destinationS3DTODc"-->
+<!--                      property="s3BucketRegion"-->
+<!--                      label="S3 Bucket Region"-->
+<!--                      required="true"-->
+<!--                      requiredMessage="Region is required"/>-->
 
-            <!-- Enum: DestinationS3OutputFormat -->
-            <comboBox id="s3OutputFormatField"
-                      dataContainer="destinationS3DTODc"
-                      property="s3OutputFormat"
-                      label="Output Format"/>
+<!--            &lt;!&ndash; Enum: DestinationS3OutputFormat &ndash;&gt;-->
+<!--            <comboBox id="s3OutputFormatField"-->
+<!--                      dataContainer="destinationS3DTODc"-->
+<!--                      property="s3OutputFormat"-->
+<!--                      label="Output Format"/>-->
 
-            <textField id="roleArnField"
-                       dataContainer="destinationS3DTODc"
-                       property="roleArn"
-                       label="Role ARN"/>
+<!--            <textField id="roleArnField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="roleArn"-->
+<!--                       label="Role ARN"/>-->
 
-            <textField id="s3EndpointField"
-                       dataContainer="destinationS3DTODc"
-                       property="s3Endpoint"
-                       label="S3 Endpoint"/>
+<!--            <textField id="s3EndpointField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="s3Endpoint"-->
+<!--                       label="S3 Endpoint"/>-->
 
-            <textField id="s3PathFormatField"
-                       dataContainer="destinationS3DTODc"
-                       property="s3PathFormat"
-                       label="S3 Path Format"/>
+<!--            <textField id="s3PathFormatField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="s3PathFormat"-->
+<!--                       label="S3 Path Format"/>-->
 
-            <textField id="fileNamePatternField"
-                       dataContainer="destinationS3DTODc"
-                       property="fileNamePattern"
-                       label="File Name Pattern"/>
+<!--            <textField id="fileNamePatternField"-->
+<!--                       dataContainer="destinationS3DTODc"-->
+<!--                       property="fileNamePattern"-->
+<!--                       label="File Name Pattern"/>-->
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
