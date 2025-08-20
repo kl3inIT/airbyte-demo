@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://destinationDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="destinationDc"
+                  class="com.company.airbytedemo.entity.Destination">
+            <fetchPlan extends="_base"/>
+            <loader id="destinationDl"/>
+        </instance>
+        <instance id="destinationS3DTODc" class="com.company.airbytedemo.entity.DestinationS3DTO">
+            <loader id="destinationS3DTODl"/>
+            <fetchPlan extends="_base"/>
+        </instance>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="destinationDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name"/>
+            <textField id="dtoDestinationNameField"
+                       dataContainer="destinationS3DTODc"
+                       property="destinationName"
+                       label="Display Name"
+                       required="true"
+                       requiredMessage="Destination name is required"/>
+
+            <textField id="accessKeyIdField"
+                       dataContainer="destinationS3DTODc"
+                       property="accessKeyId"
+                       label="Access Key ID"/>
+
+            <passwordField id="secretAccessKeyField"
+                           dataContainer="destinationS3DTODc"
+                           property="secretAccessKey"
+                           label="Secret Access Key"/>
+
+            <textField id="s3BucketNameField"
+                       dataContainer="destinationS3DTODc"
+                       property="s3BucketName"
+                       label="S3 Bucket Name"
+                       required="true"
+                       requiredMessage="Bucket name is required"/>
+
+            <textField id="s3BucketPathField"
+                       dataContainer="destinationS3DTODc"
+                       property="s3BucketPath"
+                       label="S3 Bucket Path"/>
+
+            <!-- Enum: DestinationS3S3BucketRegion -->
+            <comboBox id="s3BucketRegionField"
+                      dataContainer="destinationS3DTODc"
+                      property="s3BucketRegion"
+                      label="S3 Bucket Region"
+                      required="true"
+                      requiredMessage="Region is required"/>
+
+            <!-- Enum: DestinationS3OutputFormat -->
+            <comboBox id="s3OutputFormatField"
+                      dataContainer="destinationS3DTODc"
+                      property="s3OutputFormat"
+                      label="Output Format"/>
+
+            <textField id="roleArnField"
+                       dataContainer="destinationS3DTODc"
+                       property="roleArn"
+                       label="Role ARN"/>
+
+            <textField id="s3EndpointField"
+                       dataContainer="destinationS3DTODc"
+                       property="s3Endpoint"
+                       label="S3 Endpoint"/>
+
+            <textField id="s3PathFormatField"
+                       dataContainer="destinationS3DTODc"
+                       property="s3PathFormat"
+                       label="S3 Path Format"/>
+
+            <textField id="fileNamePatternField"
+                       dataContainer="destinationS3DTODc"
+                       property="fileNamePattern"
+                       label="File Name Pattern"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

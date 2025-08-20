@@ -4,6 +4,7 @@
     <menu id="application" title="msg://com.company.airbytedemo/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.airbytedemo.view.user/UserListView.title"/>
         <item view="Source.list" title="msg://com.company.airbytedemo.view.source/sourceListView.title"/>
+        <item view="Destination.list" title="msg://com.company.airbytedemo.view.destination/destinationListView.title"/>
     </menu>
 
 </menu-config>
