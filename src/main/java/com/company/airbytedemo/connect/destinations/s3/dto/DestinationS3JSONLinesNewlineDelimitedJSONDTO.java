@@ -1,26 +1,18 @@
-package com.company.airbytedemo.dto;
+package com.company.airbytedemo.connect.destinations.s3.dto;
 
-import com.company.airbytedemo.dto.enums.DestinationS3Compression;
-import com.company.airbytedemo.dto.enums.DestinationS3Flattening;
-import com.company.airbytedemo.dto.enums.DestinationS3FormatType;
+import com.company.airbytedemo.connect.destinations.s3.enums.DestinationS3FormatType;
+import com.company.airbytedemo.connect.destinations.s3.enums.DestinationS3Compression;
+import com.company.airbytedemo.connect.destinations.s3.enums.DestinationS3Flattening;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3CSVCommaSeparatedValuesDTO {
+public class DestinationS3JSONLinesNewlineDelimitedJSONDTO {
 
     private String compression;
 
     private String flattening;
 
     private String formatType;
-
-    public DestinationS3Compression getCompression() {
-        return compression == null ? null : DestinationS3Compression.fromId(compression);
-    }
-
-    public void setCompression(DestinationS3Compression compression) {
-        this.compression = compression == null ? null : compression.getId();
-    }
 
     public DestinationS3FormatType getFormatType() {
         return formatType == null ? null : DestinationS3FormatType.fromId(formatType);
@@ -38,5 +30,12 @@ public class DestinationS3CSVCommaSeparatedValuesDTO {
         this.flattening = flattening == null ? null : flattening.getId();
     }
 
+    public DestinationS3Compression getCompression() {
+        return compression == null ? null : DestinationS3Compression.fromId(compression);
+    }
+
+    public void setCompression(DestinationS3Compression compression) {
+        this.compression = compression == null ? null : compression.getId();
+    }
 
 }

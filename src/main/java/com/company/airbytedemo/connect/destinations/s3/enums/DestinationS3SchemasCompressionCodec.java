@@ -1,4 +1,4 @@
-package com.company.airbytedemo.dto.enums;
+package com.company.airbytedemo.connect.destinations.s3.enums;
 
 import io.jmix.core.metamodel.datatype.EnumClass;
 
