@@ -5,7 +5,7 @@ import io.jmix.core.metamodel.datatype.EnumClass;
 import org.springframework.lang.Nullable;
 
 
-public enum DestinationS3S3BucketRegion implements EnumClass<String> {
+public enum DestinationS3BucketRegion implements EnumClass<String> {
     UNKNOWN(""),
     AF_SOUTH1("af-south-1"),
     AP_EAST1("ap-east-1"),
@@ -43,7 +43,7 @@ public enum DestinationS3S3BucketRegion implements EnumClass<String> {
 
     private final String id;
 
-    DestinationS3S3BucketRegion(String id) {
+    DestinationS3BucketRegion(String id) {
         this.id = id;
     }
 
@@ -52,8 +52,8 @@ public enum DestinationS3S3BucketRegion implements EnumClass<String> {
     }
 
     @Nullable
-    public static DestinationS3S3BucketRegion fromId(String id) {
-        for (DestinationS3S3BucketRegion at : DestinationS3S3BucketRegion.values()) {
+    public static DestinationS3BucketRegion fromId(String id) {
+        for (DestinationS3BucketRegion at : DestinationS3BucketRegion.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

@@ -4,7 +4,15 @@ import com.airbyte.api.Airbyte;
 import com.airbyte.api.models.operations.*;
 import com.airbyte.api.models.operations.CreateDeclarativeSourceDefinitionRequest;
 import com.airbyte.api.models.shared.*;
+import com.company.airbytedemo.dto.DestinationS3CSVCommaSeparatedValuesDTO;
+import com.company.airbytedemo.dto.DestinationS3DTO;
+import com.company.airbytedemo.dto.DestinationS3JSONLinesNewlineDelimitedJSONDTO;
+import com.company.airbytedemo.dto.S3FormatConfig;
+import com.company.airbytedemo.dto.enums.DestinationS3CompressionTypeE;
+import com.company.airbytedemo.dto.enums.DestinationS3FlatteningType;
+import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
 import com.company.airbytedemo.entity.DatabaseType;
+import com.company.airbytedemo.utils.AirbyteUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AirbyteService {
@@ -200,17 +209,22 @@ public class AirbyteService {
         return null;
     }
 
-    public DestinationResponse createDestination(String s3DestName, String s3BucketPath) {
+    public DestinationResponse createDestination(String name, DestinationS3DTO s3Dto, S3FormatConfig format) {
+
         DestinationCreateRequest req = DestinationCreateRequest.builder()
-                .name(s3DestName)
+                .name(name)
                 .workspaceId(workspaceId)
                 .configuration(DestinationConfiguration.of(DestinationS3.builder()
-                        .accessKeyId(s3AccessKey)
-                        .secretAccessKey(s3SecretKey)
-                        .s3BucketName(s3Bucket)
-                        .s3BucketRegion(DestinationS3S3BucketRegion.US_EAST1)
-                        .s3Endpoint(s3Endpoint)
-                        .s3BucketPath(s3BucketPath)
+                        .accessKeyId(Optional.ofNullable(s3Dto.getAccessKeyId()))
+                        .secretAccessKey(s3Dto.getSecretAccessKey())
+                        .s3BucketName(s3Dto.getS3BucketName())
+                        .s3BucketRegion(s3Dto.getS3S3BucketRegion())
+                        .s3Endpoint(s3Dto.getS3Endpoint())
+                        .format(buildOutputFormat(format, s3Dto.getFormat()))
+                        .s3BucketPath(s3Dto.getS3BucketPath())
+                        .fileNamePattern(Optional.ofNullable(s3Dto.getFileNamePattern()))
+                        .roleArn(Optional.ofNullable(s3Dto.getRoleArn()))
+                        .s3PathFormat(Optional.ofNullable(s3Dto.getS3PathFormat()))
                         .build()))
                 .build();
         CreateDestinationResponse res = null;
@@ -229,6 +243,47 @@ public class AirbyteService {
         return null;
     }
 
+    private DestinationS3OutputFormat buildOutputFormat(S3FormatConfig s3FormatConfig, DestinationS3OutputFormatType formatType) {
+        switch (formatType) {
+            case CSV -> {
+                DestinationS3CSVCommaSeparatedValuesDTO s3CsvDto = AirbyteUtils.requireType(s3FormatConfig, DestinationS3CSVCommaSeparatedValuesDTO.class);
+                return DestinationS3OutputFormat.of(
+                        DestinationS3CSVCommaSeparatedValues.builder()
+                                .formatType(DestinationS3FormatType.CSV)
+                                .compression(mapCsvCompression(s3CsvDto.getCompression()))
+                                .flattening(mapCsvFlattening(s3CsvDto.getFlattening()))
+                                .build());
+            }
+            case JSON -> {
+                DestinationS3JSONLinesNewlineDelimitedJSONDTO s3JsonDto = AirbyteUtils.requireType(s3FormatConfig, DestinationS3JSONLinesNewlineDelimitedJSONDTO.class);
+                return null;
+            }
+            case AVRO -> {
+                return null;
+            }
+            case PARQUET -> {
+                return null;
+            }
+        }
+        return null;
+    }
 
+    private DestinationS3Compression mapCsvCompression(DestinationS3CompressionTypeE compressionType) {
+        if (compressionType == null) return DestinationS3Compression.of(DestinationS3NoCompression.builder().build());
+        return switch (compressionType) {
+            case NO_COMPRESSION -> DestinationS3Compression.of(DestinationS3NoCompression.builder().build());
+            case GZIP -> DestinationS3Compression.of(DestinationS3GZIP.builder().build());
+        };
+    }
+
+    private DestinationS3Flattening mapCsvFlattening(DestinationS3FlatteningType flatteningType) {
+        if (flatteningType == null) return DestinationS3Flattening.NO_FLATTENING;
+        return switch (flatteningType) {
+            case NO_FLATTENING -> DestinationS3Flattening.NO_FLATTENING;
+            case ROOT_LEVEL_FLATTENING -> DestinationS3Flattening.ROOT_LEVEL_FLATTENING;
+        };
+    }
 }
+
+
 

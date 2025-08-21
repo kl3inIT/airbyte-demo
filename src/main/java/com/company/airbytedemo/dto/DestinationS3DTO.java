@@ -1,17 +1,17 @@
 package com.company.airbytedemo.dto;
 
-import com.company.airbytedemo.dto.enums.DestinationS3OutputFormat;
-import com.company.airbytedemo.dto.enums.DestinationS3S3BucketRegion;
+import com.airbyte.api.models.shared.DestinationS3S3BucketRegion;
+import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
+import com.company.airbytedemo.dto.enums.DestinationS3BucketRegion;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 @JmixEntity
 public class DestinationS3DTO {
 
     private String accessKeyId;
-
-    @NotNull
-    private String destinationType;
 
     private String fileNamePattern;
 
@@ -33,19 +33,23 @@ public class DestinationS3DTO {
 
     private String secretAccessKey;
 
-    public DestinationS3OutputFormat getFormat() {
-        return format == null ? null : DestinationS3OutputFormat.fromId(format);
+    public DestinationS3OutputFormatType getFormat() {
+        return format == null ? null : DestinationS3OutputFormatType.fromId(format);
     }
 
-    public void setFormat(DestinationS3OutputFormat format) {
+    public void setFormat(DestinationS3OutputFormatType format) {
         this.format = format == null ? null : format.getId();
     }
 
-    public DestinationS3S3BucketRegion getS3BucketRegion() {
-        return s3BucketRegion == null ? null : DestinationS3S3BucketRegion.fromId(s3BucketRegion);
+    public DestinationS3BucketRegion getS3BucketRegion() {
+        return s3BucketRegion == null ? null : DestinationS3BucketRegion.fromId(s3BucketRegion);
     }
 
-    public void setS3BucketRegion(DestinationS3S3BucketRegion s3BucketRegion) {
+    public Optional<DestinationS3S3BucketRegion> getS3S3BucketRegion() {
+        return DestinationS3S3BucketRegion.fromValue(s3BucketRegion);
+    }
+
+    public void setS3BucketRegion(DestinationS3BucketRegion s3BucketRegion) {
         this.s3BucketRegion = s3BucketRegion == null ? null : s3BucketRegion.getId();
     }
 
@@ -55,14 +59,6 @@ public class DestinationS3DTO {
 
     public void setAccessKeyId(String accessKeyId) {
         this.accessKeyId = accessKeyId;
-    }
-
-    public String getDestinationType() {
-        return destinationType;
-    }
-
-    public void setDestinationType(String destinationType) {
-        this.destinationType = destinationType;
     }
 
     public String getFileNamePattern() {

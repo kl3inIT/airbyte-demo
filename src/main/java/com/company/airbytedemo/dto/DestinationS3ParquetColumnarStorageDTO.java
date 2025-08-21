@@ -4,7 +4,7 @@ import com.company.airbytedemo.dto.enums.DestinationS3SchemasCompressionCodec;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3ParquetColumnarStorageDTO {
+public class DestinationS3ParquetColumnarStorageDTO implements S3FormatConfig {
 
     private Long blockSizeMb;
 
@@ -14,19 +14,9 @@ public class DestinationS3ParquetColumnarStorageDTO {
 
     private Long dictionaryPageSizeKb;
 
-    private String formatType;
-
     private Long maxPaddingSizeMb;
 
     private Long pageSizeKb;
-
-    public String getFormatType() {
-        return formatType;
-    }
-
-    public void setFormatType(String formatType) {
-        this.formatType = formatType;
-    }
 
     public DestinationS3SchemasCompressionCodec getCompressionCodec() {
         return compressionCodec == null ? null : DestinationS3SchemasCompressionCodec.fromId(compressionCodec);

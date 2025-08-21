@@ -5,12 +5,14 @@ import io.jmix.core.metamodel.datatype.EnumClass;
 import org.springframework.lang.Nullable;
 
 
-public enum DestinationS3FormatType implements EnumClass<String> {
-    CSV("CSV");
+public enum DestinationS3CompressionTypeE implements EnumClass<String> {
+
+    NO_COMPRESSION("No Compression"),
+    GZIP("GZIP");
 
     private final String id;
 
-    DestinationS3FormatType(String id) {
+    DestinationS3CompressionTypeE(String id) {
         this.id = id;
     }
 
@@ -19,8 +21,8 @@ public enum DestinationS3FormatType implements EnumClass<String> {
     }
 
     @Nullable
-    public static DestinationS3FormatType fromId(String id) {
-        for (DestinationS3FormatType at : DestinationS3FormatType.values()) {
+    public static DestinationS3CompressionTypeE fromId(String id) {
+        for (DestinationS3CompressionTypeE at : DestinationS3CompressionTypeE.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

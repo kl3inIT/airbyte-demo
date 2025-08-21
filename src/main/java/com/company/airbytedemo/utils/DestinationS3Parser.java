@@ -41,14 +41,10 @@ public final class DestinationS3Parser {
         root.setS3PathFormat(AirbyteUtils.txt(cfg, "s3_path_format"));
         root.setFileNamePattern(AirbyteUtils.txt(cfg, "file_name_pattern"));
 
-        // destination_type (nếu bạn muốn default)
-        String destType = AirbyteUtils.txt(cfg, "destination_type");
-        root.setDestinationType(destType != null ? destType : "s3");
-
         // Region (map snake-case -> enum id)
         String regionId = AirbyteUtils.txt(cfg, "s3_bucket_region");
         if (regionId != null) {
-            root.setS3BucketRegion(DestinationS3S3BucketRegion.fromId(regionId));
+            root.setS3BucketRegion(DestinationS3BucketRegion.fromId(regionId));
         }
 
         // --- Format ---
@@ -58,37 +54,35 @@ public final class DestinationS3Parser {
             // DestinationS3OutputFormat là enum của BẠN (không phải Speakeasy)
             // Nếu enum của bạn dùng "JSON" thay cho "JSONL", map nhẹ:
             String outFmt = "JSONL".equalsIgnoreCase(formatTypeId) ? "JSON" : formatTypeId;
-            root.setFormat(DestinationS3OutputFormat.fromId(outFmt));
+            root.setFormat(DestinationS3OutputFormatType.fromId(outFmt));
         }
 
-        DestinationS3OutputFormat out = root.getFormat();
+        DestinationS3OutputFormatType out = root.getFormat();
 
         // --- CSV ---
-        if (out == DestinationS3OutputFormat.CSV) {
+        if (out == DestinationS3OutputFormatType.CSV) {
             csv = dm.create(DestinationS3CSVCommaSeparatedValuesDTO.class);
-            csv.setFlattening(DestinationS3Flattening.fromId(AirbyteUtils.txt(fmt, "flattening")));
+            csv.setFlattening(DestinationS3FlatteningType.fromId(AirbyteUtils.txt(fmt, "flattening")));
             JsonNode comp = fmt.path("compression");
-            csv.setCompression(DestinationS3Compression.fromId(AirbyteUtils.txt(comp, "compression_type")));
-            csv.setFormatType(DestinationS3FormatType.fromId("CSV"));
+            csv.setCompression(DestinationS3CompressionTypeE.fromId(AirbyteUtils.txt(comp, "compression_type")));
         }
 
         // --- JSON / JSONL ---
-        if (out == DestinationS3OutputFormat.JSON || "JSONL".equalsIgnoreCase(formatTypeId)) {
+        if (out == DestinationS3OutputFormatType.JSON || "JSONL".equalsIgnoreCase(formatTypeId)) {
             json = dm.create(DestinationS3JSONLinesNewlineDelimitedJSONDTO.class);
-            json.setFlattening(DestinationS3Flattening.fromId(AirbyteUtils.txt(fmt, "flattening")));
+            json.setFlattening(DestinationS3FlatteningType.fromId(AirbyteUtils.txt(fmt, "flattening")));
             JsonNode comp = fmt.path("compression");
-            json.setCompression(DestinationS3Compression.fromId(AirbyteUtils.txt(comp, "compression_type")));
-            json.setFormatType(DestinationS3FormatType.fromId("JSONL"));
+            json.setCompression(DestinationS3CompressionTypeE.fromId(AirbyteUtils.txt(comp, "compression_type")));
         }
 
         // --- AVRO ---
-        if (out == DestinationS3OutputFormat.AVRO) {
+        if (out == DestinationS3OutputFormatType.AVRO) {
             avro = dm.create(DestinationS3AvroApacheAvroDTO.class);
             avro.setCodec(DestinationS3CompressionCodec.fromId(AirbyteUtils.txt(fmt, "codec")));
         }
 
         // --- PARQUET ---
-        if (out == DestinationS3OutputFormat.PARQUET) {
+        if (out == DestinationS3OutputFormatType.PARQUET) {
             parquet = dm.create(DestinationS3ParquetColumnarStorageDTO.class);
             parquet.setCompressionCodec(DestinationS3SchemasCompressionCodec.fromId(AirbyteUtils.txt(fmt, "compression_codec")));
             parquet.setBlockSizeMb(AirbyteUtils.longVal(fmt, "block_size_mb"));
@@ -96,7 +90,6 @@ public final class DestinationS3Parser {
             parquet.setDictionaryEncoding(AirbyteUtils.boolVal(fmt, "dictionary_encoding"));
             parquet.setDictionaryPageSizeKb(AirbyteUtils.longVal(fmt, "dictionary_page_size_kb"));
             parquet.setMaxPaddingSizeMb(AirbyteUtils.longVal(fmt, "max_padding_size_mb"));
-            parquet.setFormatType(AirbyteUtils.txt(fmt, "format_type")); // thường "PARQUET"
         }
 
         return new Parsed(root, csv, json, avro, parquet);

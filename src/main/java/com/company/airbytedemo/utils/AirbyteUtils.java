@@ -21,4 +21,13 @@ public class AirbyteUtils {
         JsonNode v = n.get(k);
         return (v == null || v.isNull()) ? null : v.asBoolean();
     }
+
+    public static <T> T requireType(Object o, Class<T> type) {
+        if (o == null) throw new IllegalArgumentException("Format config is required");
+        if (!type.isInstance(o)) {
+            throw new IllegalArgumentException("Format config mismatch. Expected " + type.getSimpleName()
+                    + " but got " + o.getClass().getSimpleName());
+        }
+        return type.cast(o);
+    }
 }

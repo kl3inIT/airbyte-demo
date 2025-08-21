@@ -100,7 +100,6 @@
                         <formLayout id="csvForm" dataContainer="destinationS3CSVDc">
                             <comboBox id="csvCompressionField" property="compression" label="Compression"/>
                             <comboBox id="csvFlatteningField" property="flattening" label="Flattening"/>
-                            <comboBox id="csvFormatTypeField" property="formatType" label="Format Type"/>
                         </formLayout>
                     </vbox>
                 </tab>
@@ -112,8 +111,6 @@
                             <comboBox id="jsonCompressionField" property="compression" label="Compression"
                             />
                             <comboBox id="jsonFlatteningField" property="flattening" label="Flattening"
-                            />
-                            <comboBox id="jsonFormatTypeField" property="formatType" label="Format Type"
                             />
                         </formLayout>
                     </vbox>
@@ -138,7 +135,6 @@
                             />
                             <numberField id="pqDictionaryPageSizeKbField" property="dictionaryPageSizeKb"
                                          label="Dictionary Page Size (KB)"/>
-                            <textField id="pqFormatTypeField" property="formatType" label="Format Type"/>
                             <numberField id="pqMaxPaddingSizeMbField" property="maxPaddingSizeMb"
                                          label="Max Padding Size (MB)"/>
                             <numberField id="pqPageSizeKbField" property="pageSizeKb" label="Page Size (KB)"/>

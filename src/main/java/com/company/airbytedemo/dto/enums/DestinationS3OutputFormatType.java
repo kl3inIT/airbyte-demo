@@ -5,7 +5,7 @@ import io.jmix.core.metamodel.datatype.EnumClass;
 import org.springframework.lang.Nullable;
 
 
-public enum DestinationS3OutputFormat implements EnumClass<String> {
+public enum DestinationS3OutputFormatType implements EnumClass<String> {
     CSV("CSV: Comma-Separated Values"),
     JSON("JSON Lines: Newline-delimited JSON"),
     AVRO("Avro: Apache Avro"),
@@ -13,7 +13,7 @@ public enum DestinationS3OutputFormat implements EnumClass<String> {
 
     private final String id;
 
-    DestinationS3OutputFormat(String id) {
+    DestinationS3OutputFormatType(String id) {
         this.id = id;
     }
 
@@ -22,8 +22,8 @@ public enum DestinationS3OutputFormat implements EnumClass<String> {
     }
 
     @Nullable
-    public static DestinationS3OutputFormat fromId(String id) {
-        for (DestinationS3OutputFormat at : DestinationS3OutputFormat.values()) {
+    public static DestinationS3OutputFormatType fromId(String id) {
+        for (DestinationS3OutputFormatType at : DestinationS3OutputFormatType.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

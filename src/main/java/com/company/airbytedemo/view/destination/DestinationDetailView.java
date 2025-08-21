@@ -1,11 +1,11 @@
 package com.company.airbytedemo.view.destination;
 
+import com.airbyte.api.models.shared.DestinationResponse;
 import com.company.airbytedemo.dto.*;
 import com.company.airbytedemo.entity.Destination;
 import com.company.airbytedemo.service.AirbyteService;
 import com.company.airbytedemo.utils.DestinationS3Parser;
 import com.company.airbytedemo.view.main.MainView;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.router.Route;
@@ -13,7 +13,6 @@ import io.jmix.core.DataManager;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.tabsheet.JmixTabSheet;
 import io.jmix.flowui.model.InstanceContainer;
-import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -106,10 +105,26 @@ public class DestinationDetailView extends StandardDetailView<Destination> {
     @Subscribe
     public void onBeforeSave(final BeforeSaveEvent event) {
         try {
-            Destination destination = getEditedEntity();
-            DestinationS3DTO s3DTO = destinationS3DTODc.getItem();
-//            airbyteService.createDestination()
+            Destination destination = getEditedEntity(); // lấy tên hiển thị
+            DestinationS3DTO root = destinationS3DTODc.getItem();
 
+            S3FormatConfig formatConfig = switch (root.getFormat()) {
+                case CSV -> destinationS3CSVDc.getItem();
+                case JSON -> destinationS3JsonDc.getItem();
+                case AVRO -> destinationS3ArvoDc.getItem();
+                case PARQUET -> destinationS3ParquetDc.getItem();
+                default -> null;
+            };
+
+            DestinationResponse response = airbyteService.createDestination(destination.getName(), root, formatConfig);
+            if (response == null) {
+                notifications.create("Airbyte create destination failed")
+                        .withType(Notifications.Type.ERROR).show();
+                event.preventSave();
+            }
+            String rawConfigJson = objectMapper.writeValueAsString(response.configuration().value());
+            destination.setRawConfig(rawConfigJson);
+            dataManager.save(destination);
         } catch (Exception e) {
             notifications.create("Save failed: " + e.getMessage())
                     .withType(Notifications.Type.ERROR)
