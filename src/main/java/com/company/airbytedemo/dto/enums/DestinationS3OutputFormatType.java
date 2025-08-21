@@ -6,10 +6,10 @@ import org.springframework.lang.Nullable;
 
 
 public enum DestinationS3OutputFormatType implements EnumClass<String> {
-    CSV("CSV: Comma-Separated Values"),
-    JSON("JSON Lines: Newline-delimited JSON"),
-    AVRO("Avro: Apache Avro"),
-    PARQUET("Parquet: Columnar Storage");
+    CSV("csv"),
+    JSON("json"),
+    AVRO("arvo"),
+    PARQUET("parquet");
 
     private final String id;
 
@@ -23,8 +23,9 @@ public enum DestinationS3OutputFormatType implements EnumClass<String> {
 
     @Nullable
     public static DestinationS3OutputFormatType fromId(String id) {
+        String normalized = id.trim();
         for (DestinationS3OutputFormatType at : DestinationS3OutputFormatType.values()) {
-            if (at.getId().equals(id)) {
+            if (at.getId().equalsIgnoreCase(normalized)) {
                 return at;
             }
         }
