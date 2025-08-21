@@ -3,6 +3,7 @@ package com.company.airbytedemo.view.destination;
 import com.company.airbytedemo.dto.*;
 import com.company.airbytedemo.entity.Destination;
 import com.company.airbytedemo.service.AirbyteService;
+import com.company.airbytedemo.utils.DestinationS3Parser;
 import com.company.airbytedemo.view.main.MainView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,22 +60,47 @@ public class DestinationDetailView extends StandardDetailView<Destination> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         Destination entity = destinationDc.getItemOrNull();
-        DestinationS3DTO dto;
         formatTabSheet.setVisible(false);
-
         try {
-            if (entity != null && entity.getRawConfig() != null && !entity.getRawConfig().isBlank()) {
-                dto = objectMapper.readValue(entity.getRawConfig(), DestinationS3DTO.class);
-            } else {
-                dto = dataManager.create(DestinationS3DTO.class); // DTO trống mặc định
-            }
+            var parsed = DestinationS3Parser.parse(
+                    entity != null ? entity.getRawConfig() : null,
+                    objectMapper,
+                    dataManager
+            );
+
+            // root
+            destinationS3DTODc.setItem(parsed.root());
+
+            // 4 DTO con (nếu null thì tạo rỗng để form binding không lỗi)
+            destinationS3CSVDc.setItem(parsed.csv() != null
+                    ? parsed.csv()
+                    : dataManager.create(DestinationS3CSVCommaSeparatedValuesDTO.class));
+
+            destinationS3JsonDc.setItem(parsed.json() != null
+                    ? parsed.json()
+                    : dataManager.create(DestinationS3JSONLinesNewlineDelimitedJSONDTO.class));
+
+            destinationS3ArvoDc.setItem(parsed.avro() != null
+                    ? parsed.avro()
+                    : dataManager.create(DestinationS3AvroApacheAvroDTO.class));
+
+            destinationS3ParquetDc.setItem(parsed.parquet() != null
+                    ? parsed.parquet()
+                    : dataManager.create(DestinationS3ParquetColumnarStorageDTO.class));
+
+
         } catch (Exception ex) {
-            notifications.create("Cannot parse S3 config JSON. Opening with empty config.")
-                    .withType(Notifications.Type.WARNING).show();
-            dto = dataManager.create(DestinationS3DTO.class);
+            notifications.create("Cannot parse S3 config JSON: " + ex.getMessage())
+                    .withType(Notifications.Type.ERROR).show();
+
+            // fallback rỗng
+            destinationS3DTODc.setItem(dataManager.create(DestinationS3DTO.class));
+            destinationS3CSVDc.setItem(dataManager.create(DestinationS3CSVCommaSeparatedValuesDTO.class));
+            destinationS3JsonDc.setItem(dataManager.create(DestinationS3JSONLinesNewlineDelimitedJSONDTO.class));
+            destinationS3ArvoDc.setItem(dataManager.create(DestinationS3AvroApacheAvroDTO.class));
+            destinationS3ParquetDc.setItem(dataManager.create(DestinationS3ParquetColumnarStorageDTO.class));
         }
 
-        destinationS3DTODc.setItem(dto);
     }
 
     @Subscribe
