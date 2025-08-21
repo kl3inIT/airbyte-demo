@@ -1,8 +1,8 @@
 package com.company.airbytedemo.connector.sources.rdbms.mssql.dto;
 
+import com.company.airbytedemo.connector.sources.rdbms.common.enums.SourceSSHTunnelMethod;
 import com.company.airbytedemo.connector.sources.rdbms.mssql.enums.SourceMssqlSSLModes;
 import com.company.airbytedemo.connector.sources.rdbms.mssql.enums.SourceMssqlUpdateMethod;
-import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresSSHTunnelMethod;
 import com.company.airbytedemo.entity.DatabaseType;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
@@ -46,11 +46,11 @@ public class SourceMssqlDTO {
     }
 
 // 2 cai no y het nhau len la call enum tu postgres
-    public SourcePostgresSSHTunnelMethod getTunnelMethod() {
-        return tunnelMethod == null ? null : SourcePostgresSSHTunnelMethod.fromId(tunnelMethod);
+    public SourceSSHTunnelMethod getTunnelMethod() {
+        return tunnelMethod == null ? null : SourceSSHTunnelMethod.fromId(tunnelMethod);
     }
 
-    public void setTunnelMethod(SourcePostgresSSHTunnelMethod tunnelMethod) {
+    public void setTunnelMethod(SourceSSHTunnelMethod tunnelMethod) {
         this.tunnelMethod = tunnelMethod == null ? null : tunnelMethod.getId();
     }
 
@@ -75,4 +75,12 @@ public class SourceMssqlDTO {
 
     public String getJdbcUrlParams() { return jdbcUrlParams; }
     public void setJdbcUrlParams(String jdbcUrlParams) { this.jdbcUrlParams = jdbcUrlParams; }
+
+    public String getSchemas() {
+        return schemas;
+    }
+
+    public void setSchemas(String schemas) {
+        this.schemas = schemas;
+    }
 }

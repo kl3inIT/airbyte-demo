@@ -1,4 +1,4 @@
-package com.company.airbytedemo.connector.sources.rdbms.mssql.dto;
+package com.company.airbytedemo.connector.sources.rdbms.mysql.dto;
 
 import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresInvalidCDCPositionBehaviorAdvanced;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
@@ -9,14 +9,11 @@ import jakarta.persistence.Entity;
 import java.util.UUID;
 
 @JmixEntity
-public class SqlServerCdcDTO {
+public class MysqlBinlogCDCDTO {
 
-    private Long initialWaitingSeconds;
 
+    private String serverTimezone;
     private String invalidCdcCursorPositionBehavior;
-
-    private Long queueSize;
-
     private Long initialLoadTimeoutHours;
 
 
@@ -37,19 +34,13 @@ public class SqlServerCdcDTO {
         this.initialLoadTimeoutHours = initialLoadTimeoutHours;
     }
 
-    public Long getQueueSize() {
-        return queueSize;
+    public String getServerTimezone() {
+        return serverTimezone;
     }
 
-    public void setQueueSize(Long queueSize) {
-        this.queueSize = queueSize;
+    public void setServerTimezone(String serverTimezone) {
+        this.serverTimezone = serverTimezone;
     }
 
-    public Long getInitialWaitingSeconds() {
-        return initialWaitingSeconds;
-    }
 
-    public void setInitialWaitingSeconds(Long initialWaitingSeconds) {
-        this.initialWaitingSeconds = initialWaitingSeconds;
-    }
 }

@@ -228,7 +228,5 @@ public class AirbyteService {
         }
         return null;
     }
-
-
 }
 

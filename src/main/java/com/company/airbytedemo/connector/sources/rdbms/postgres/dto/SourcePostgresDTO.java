@@ -1,7 +1,7 @@
 package com.company.airbytedemo.connector.sources.rdbms.postgres.dto;
 
+import com.company.airbytedemo.connector.sources.rdbms.common.enums.SourceSSHTunnelMethod;
 import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresPostgres;
-import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresSSHTunnelMethod;
 import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresSSLModes;
 import com.company.airbytedemo.connector.sources.rdbms.postgres.enums.SourcePostgresUpdateMethod;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -57,11 +57,11 @@ public class SourcePostgresDTO {
         this.sslMode = sslMode == null ? null : sslMode.getId();
     }
 
-    public SourcePostgresSSHTunnelMethod getTunnelMethod() {
-        return tunnelMethod == null ? null : SourcePostgresSSHTunnelMethod.fromId(tunnelMethod);
+    public SourceSSHTunnelMethod getTunnelMethod() {
+        return tunnelMethod == null ? null : SourceSSHTunnelMethod.fromId(tunnelMethod);
     }
 
-    public void setTunnelMethod(SourcePostgresSSHTunnelMethod tunnelMethod) {
+    public void setTunnelMethod(SourceSSHTunnelMethod tunnelMethod) {
         this.tunnelMethod = tunnelMethod == null ? null : tunnelMethod.getId();
     }
 
