@@ -7,7 +7,9 @@ import org.springframework.lang.Nullable;
 
 public enum DestinationType implements EnumClass<String> {
 
-    S3("s3");
+    S3("S3"),
+    POSTGRES("POSTGRES"),
+    MSSQL("MSSQL");
 
     private final String id;
 

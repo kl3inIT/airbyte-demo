@@ -18,13 +18,13 @@ public class DestinationTest {
     @Id
     private UUID id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "WORKSPACE_ID", nullable = false)
+    @Column(name = "WORKSPACE_ID")
     private String workspaceId;
 
-    @Column(name = "DEFINITION_ID", nullable = false)
+    @Column(name = "DEFINITION_ID")
     private String definitionId;
 
     @Column(name = "DESTINATION_TYPE", nullable = false)

@@ -36,9 +36,9 @@
             <button id="createButton" action="destinationTestsDataGrid.createAction"/>
             <dropdownButton id="createBtn" icon="PLUS" text="Create" themeNames="icon">
                 <items>
-                    <actionItem id="createS3" ref="destinationTestsDataGrid.createAction" />
-                    <actionItem id="createPostgres" ref="destinationTestsDataGrid.createAction"/>
-                    <actionItem id="createMSSQL"  ref="destinationTestsDataGrid.createAction"/>
+                    <actionItem id="createS3"   ref="destinationTestsDataGrid.createS3"/>
+                    <actionItem id="createPostgres" ref="destinationTestsDataGrid.createPostgres"/>
+                    <actionItem id="createMSSQL"  ref="destinationTestsDataGrid.createMSSQL"/>
                 </items>
             </dropdownButton>
 

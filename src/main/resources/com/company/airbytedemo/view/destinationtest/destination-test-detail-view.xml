@@ -6,7 +6,6 @@
         <instance id="destinationTestDc"
                   class="com.company.airbytedemo.entity.DestinationTest">
             <fetchPlan extends="_base">
-                <property name="rawConfig" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="destinationTestDl"/>
         </instance>
@@ -25,17 +24,12 @@
                 <responsiveStep minWidth="40em" columns="2"/>
             </responsiveSteps>
             <textField id="nameField" property="name"/>
-            <textField id="workspaceIdField" property="workspaceId"/>
-            <textField id="definitionIdField" property="definitionId"/>
-            <select id="destinationTypeField" property="destinationType"/>
-            <entityPicker id="rawConfigField" property="rawConfig">
-                <actions>
-                    <action id="entityLookupAction" type="entity_lookup"/>
-                    <action id="entityClearAction" type="entity_clear"/>
-                </actions>
-            </entityPicker>
-            <textField id="rawConfig" property="rawConfig."/>
+            <textField id="destinationTypeField" property="destinationType"/>
+
         </formLayout>
+        <vbox id="destinationDetailVbox">
+
+        </vbox>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
             <button id="closeButton" action="closeAction"/>
