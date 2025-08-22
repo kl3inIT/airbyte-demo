@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://destinationTestListView.title"
+      focusComponent="destinationTestsDataGrid">
+    <data>
+        <collection id="destinationTestsDc"
+                    class="com.company.airbytedemo.entity.DestinationTest">
+            <fetchPlan extends="_base">
+                <property name="rawConfig" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="destinationTestsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from DestinationTest e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="destinationTestsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createButton" action="destinationTestsDataGrid.createAction"/>
+            <dropdownButton id="createBtn" icon="PLUS" text="Create" themeNames="icon">
+                <items>
+                    <actionItem id="createS3" ref="destinationTestsDataGrid.createAction" />
+                    <actionItem id="createPostgres" ref="destinationTestsDataGrid.createAction"/>
+                    <actionItem id="createMSSQL"  ref="destinationTestsDataGrid.createAction"/>
+                </items>
+            </dropdownButton>
+
+            <button id="editButton" action="destinationTestsDataGrid.editAction"/>
+            <button id="removeButton" action="destinationTestsDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="destinationTestsDl"/>
+        </hbox>
+        <dataGrid id="destinationTestsDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="destinationTestsDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="createS3"   text="Create S3 Destination"/>
+                <action id="createPostgres" text="Create Postgres Destination"/>
+                <action id="createMSSQL"  text="Create MSSQL Destination"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="workspaceId"/>
+                <column property="definitionId"/>
+                <column property="destinationType"/>
+                <column property="rawConfig"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

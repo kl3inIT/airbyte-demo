@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://destinationTestDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="destinationTestDc"
+                  class="com.company.airbytedemo.entity.DestinationTest">
+            <fetchPlan extends="_base">
+                <property name="rawConfig" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="destinationTestDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="destinationTestDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name"/>
+            <textField id="workspaceIdField" property="workspaceId"/>
+            <textField id="definitionIdField" property="definitionId"/>
+            <select id="destinationTypeField" property="destinationType"/>
+            <entityPicker id="rawConfigField" property="rawConfig">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="rawConfig" property="rawConfig."/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -13,8 +13,10 @@ import com.company.airbytedemo.dto.enums.DestinationS3FlatteningType;
 import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
 import com.company.airbytedemo.entity.DatabaseType;
 import com.company.airbytedemo.utils.AirbyteUtils;
+import io.jmix.core.EntitySerialization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -35,14 +37,8 @@ public class AirbyteService {
     @Value("${airbyte.dest.s3.name:MinIO-dest}")
     private String s3DestName;
 
-    @Value("${airbyte.dest.s3.access-key}")
-    private String s3AccessKey;
-
-    @Value("${airbyte.dest.s3.secret-key}")
-    private String s3SecretKey;
-
-    @Value("${airbyte.dest.s3.bucket}")
-    private String s3Bucket;
+    @Autowired
+    private EntitySerialization entitySerialization;
 
 
     // API endpoint MinIO: http://host:9000  (KHÔNG phải 9001)

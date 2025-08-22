@@ -5,6 +5,8 @@
         <item view="User.list" title="msg://com.company.airbytedemo.view.user/UserListView.title"/>
         <item view="Source.list" title="msg://com.company.airbytedemo.view.source/sourceListView.title"/>
         <item view="Destination.list" title="msg://com.company.airbytedemo.view.destination/destinationListView.title"/>
+        <item view="DestinationTest.list"
+              title="msg://com.company.airbytedemo.view.destinationtest/destinationTestListView.title"/>
     </menu>
 
 </menu-config>

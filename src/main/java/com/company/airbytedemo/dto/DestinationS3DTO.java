@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 
 @JmixEntity
-public class DestinationS3DTO {
+public class DestinationS3DTO extends DestinationDTO {
 
     private String accessKeyId;
 
