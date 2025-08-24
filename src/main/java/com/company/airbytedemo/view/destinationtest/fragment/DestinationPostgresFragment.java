@@ -11,4 +11,9 @@ import io.jmix.flowui.fragmentrenderer.RendererItemContainer;
 @FragmentDescriptor("destination-postgres-fragment.xml")
 @RendererItemContainer("destinationDTODc")
 public class DestinationPostgresFragment extends FragmentRenderer<VerticalLayout, DestinationPosgresDTO> {
+
+    public DestinationPosgresDTO getItem() {
+        // Lấy item từ fragment's data context
+        return (DestinationPosgresDTO) getFragmentData().getContainer("destinationDTODc").getItem();
+    }
 }

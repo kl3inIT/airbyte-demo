@@ -1,5 +1,6 @@
 package com.company.airbytedemo.entity;
 
+import com.company.airbytedemo.converter.DestinationDTOConverter;
 import com.company.airbytedemo.dto.DestinationDTO;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -32,6 +33,7 @@ public class DestinationTest {
 
     @Column(name = "RAW_CONFIG")
     @Lob
+    @Convert(converter = DestinationDTOConverter.class)
     private DestinationDTO rawConfig;
 
     @Column(name = "VERSION", nullable = false)

@@ -3,10 +3,10 @@
       title="msg://destinationTestDetailView.title"
       focusComponent="form">
     <data>
-
         <instance id="destinationTestDc"
                   class="com.company.airbytedemo.entity.DestinationTest">
             <fetchPlan extends="_base">
+                <property name="rawConfig"/>
             </fetchPlan>
             <loader id="destinationTestDl"/>
         </instance>

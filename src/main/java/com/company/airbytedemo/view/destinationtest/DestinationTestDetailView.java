@@ -81,11 +81,6 @@ public class DestinationTestDetailView extends StandardDetailView<DestinationTes
     }
 
     @Subscribe
-    public void onInit(final InitEvent event) {
-        
-    }
-
-    @Subscribe
     public void onBeforeShow(final BeforeShowEvent event) {
         DestinationType typeEnum = getEditedEntity().getDestinationType();
         if (typeEnum != null) {
@@ -110,6 +105,8 @@ public class DestinationTestDetailView extends StandardDetailView<DestinationTes
         }
 
     }
+
+
 
 
 }

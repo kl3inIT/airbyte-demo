@@ -5,6 +5,7 @@ import com.company.airbytedemo.dto.enums.DestinationS3BucketRegion;
 import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
 import io.jmix.core.MetadataTools;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.JmixId;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -18,7 +19,8 @@ import java.util.UUID;
 
 @JmixEntity(name="DestinationS3DTO")
 public class DestinationS3DTO extends DestinationDTO {
-    @Id
+
+    @JmixId
     private UUID id;
 
     public UUID getId() {

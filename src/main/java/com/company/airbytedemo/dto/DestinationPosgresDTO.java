@@ -1,5 +1,6 @@
 package com.company.airbytedemo.dto;
 
+import io.jmix.core.entity.annotation.JmixId;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.Id;
 
@@ -7,7 +8,8 @@ import java.util.UUID;
 
 @JmixEntity(name="DestinationPosgresDTO")
 public class DestinationPosgresDTO extends DestinationDTO {
-    @Id
+
+    @JmixId
     private UUID id;
 
     public UUID getId() {
