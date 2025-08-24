@@ -15,18 +15,27 @@ import jakarta.persistence.Converter;
 @Converter(autoApply = true)
 public class DestinationDTOConverter implements AttributeConverter<DestinationDTO, String> {
 
-    EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
-    Metadata metadata = EntitySerializationUtils.getMetaData();
-
     @Override
     public String convertToDatabaseColumn(DestinationDTO attribute) {
         if (attribute == null) return null;
-        return entitySerialization.objectToJson(attribute, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        
+        EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
+        if (entitySerialization == null) {
+            throw new IllegalStateException("EntitySerialization not available");
+        }
+        
+        return entitySerialization.toJson(attribute, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
     }
 
     @Override
     public DestinationDTO convertToEntityAttribute(String dbData) {
         if (dbData == null || dbData.isBlank()) return null;
-        return entitySerialization.entityFromJson(dbData, metadata.getClass(DestinationS3DTO.class), EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        
+        EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
+        if (entitySerialization == null) {
+            throw new IllegalStateException("EntitySerialization not available");
+        }
+        
+        return entitySerialization.entityFromJson(dbData, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
     }
 }

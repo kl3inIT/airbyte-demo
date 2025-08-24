@@ -6,10 +6,13 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="AirbyteDemo">
-        <addColumn tableName="SOURCE">
-            <column name="CREATE_AT" type="VARCHAR(255)"/>
-            <column name="DEFINITION_ID" type="VARCHAR(255)"/>
-            <column name="WORKSPACE_ID" type="VARCHAR(255)"/>
+        <dropColumn columnName="RAW_CONFIG" tableName="DESTINATION_TEST"/>
+    </changeSet>
+    <changeSet id="2" author="AirbyteDemo">
+        <addColumn tableName="DESTINATION_TEST">
+            <column name="RAW_CONFIG" type="jsonb">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <data>
+        <instance id="destinationDTODc" class="com.company.airbytedemo.dto.DestinationPosgresDTO">
+            <loader id="destinationDTODl" />
+            <fetchPlan extends="_base"/>
+        </instance>
+    </data>
     <content>
         <vbox id="root">
+            <formLayout id="destinationS3DTOForm" dataContainer="destinationDTODc">
+                <textField property="userName"/>
+                <passwordField property="password"/>
+                <textField property="workplaceId"/>
+            </formLayout>
         </vbox>
     </content>
 </fragment>

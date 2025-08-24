@@ -32,14 +32,14 @@ public class EntitySerializationUtils implements ApplicationContextAware {
         return applicationContext != null && getEntitySerialization() != null;
     }
 
-    public static Metadata getMetaData() {
-        if (applicationContext != null) {
-            try {
-                return applicationContext.getBean(Metadata.class);
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return null;
-    }
+//    public static Metadata getMetaData() {
+//        if (applicationContext != null) {
+//            try {
+//                return applicationContext.getBean(Metadata.class);
+//            } catch (Exception e) {
+//                return null;
+//            }
+//        }
+//        return null;
+//    }
 }

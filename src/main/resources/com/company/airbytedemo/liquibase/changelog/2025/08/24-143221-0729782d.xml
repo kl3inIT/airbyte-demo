@@ -6,12 +6,8 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="AirbyteDemo">
-        <dropNotNullConstraint columnDataType="varchar(255)" columnName="DEFINITION_ID" tableName="DESTINATION_TEST"/>
-    </changeSet>
-    <changeSet id="2" author="AirbyteDemo">
-        <dropNotNullConstraint columnDataType="varchar(255)" columnName="NAME" tableName="DESTINATION_TEST"/>
-    </changeSet>
-    <changeSet id="3" author="AirbyteDemo">
-        <dropNotNullConstraint columnDataType="varchar(255)" columnName="WORKSPACE_ID" tableName="DESTINATION_TEST"/>
+        <addColumn tableName="DESTINATION_TEST">
+            <column name="RAW_CONFIG" type="CLOB"/>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>

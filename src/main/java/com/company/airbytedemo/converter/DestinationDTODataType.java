@@ -16,22 +16,23 @@ import java.text.ParseException;
 import java.util.Locale;
 
 @DatatypeDef(
-        id = "destinationDTO",                     // id duy nhất cho datatype này
-        javaClass = DestinationDTO.class,  // class mà datatype này sẽ quản lý
-        defaultForClass = false
+        id = "destinationDTO",
+        javaClass = DestinationDTO.class,
+        defaultForClass = true  // ← Thay đổi này
 )
-@Ddl("jsonb") // PostgreSQL: jsonb; MySQL: JSON/LONGTEXT
+@Ddl("TEXT")
 public class DestinationDTODataType implements Datatype<DestinationDTO> {
-
-    EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
 
     @Override
     public String format(@Nullable Object value) {
-        if (value == null) {
-            return null;
-        } else {
-            return entitySerialization.objectToJson(value, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        if (value == null) return null;
+        
+        EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
+        if (entitySerialization == null) {
+            return value.toString(); // Fallback
         }
+        
+        return entitySerialization.toJson(value, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
     }
 
     @Override
@@ -42,13 +43,17 @@ public class DestinationDTODataType implements Datatype<DestinationDTO> {
     @Nullable
     @Override
     public DestinationDTO parse(@Nullable String value) throws ParseException {
-        if (value == null || value.isBlank()) {
-            return null;
+        if (value == null || value.isBlank()) return null;
+        
+        EntitySerialization entitySerialization = EntitySerializationUtils.getEntitySerialization();
+        if (entitySerialization == null) {
+            throw new ParseException("EntitySerialization not available", 0);
         }
+        
         try {
-            return entitySerialization.objectFromJson(value, DestinationDTO.class, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+            return entitySerialization.entityFromJson(value, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
         } catch (Exception e) {
-            throw new ParseException("Cannot parse DestinationDTODataType: " + e.getMessage(), 0);
+            throw new ParseException("Cannot parse DestinationDTO: " + e.getMessage(), 0);
         }
     }
 

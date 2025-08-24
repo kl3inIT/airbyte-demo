@@ -1,11 +1,20 @@
 package com.company.airbytedemo.dto;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
 
-@JmixEntity
+@JmixEntity(name = "DestinationDTO")
 public class DestinationDTO implements Serializable {
+
+    private String workplaceId;
+
+    public String getWorkplaceId() {
+        return workplaceId;
+    }
+
+    public void setWorkplaceId(String workplaceId) {
+        this.workplaceId = workplaceId;
+    }
+
 }

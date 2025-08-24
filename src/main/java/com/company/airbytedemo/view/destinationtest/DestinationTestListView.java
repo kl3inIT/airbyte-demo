@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import io.jmix.flowui.ViewNavigators;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
+import io.jmix.flowui.kit.action.BaseAction;
 import io.jmix.flowui.view.*;
 import org.checkerframework.checker.units.qual.t;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class DestinationTestListView extends StandardListView<DestinationTest> {
                 .newEntity()
                 .navigate();
 
+    }
+
+    @Subscribe("destinationTestsDataGrid.createPostgres")
+    public void onDestinationTestsDataGridCreatePostgres(final ActionPerformedEvent event) {
+        String type = DestinationType.POSTGRES.getId();
+        viewNavigators.detailView(destinationTestsDataGrid)
+                .withViewClass(DestinationTestDetailView.class)
+                .withQueryParameters(QueryParameters.of("type", type))
+                .newEntity()
+                .navigate();
     }
 
 

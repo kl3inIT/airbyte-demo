@@ -1,15 +1,33 @@
 package com.company.airbytedemo.dto;
 
 import com.airbyte.api.models.shared.DestinationS3S3BucketRegion;
-import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
 import com.company.airbytedemo.dto.enums.DestinationS3BucketRegion;
+import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
+import io.jmix.core.MetadataTools;
+import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Optional;
+import java.util.UUID;
 
-@JmixEntity
+@JmixEntity(name="DestinationS3DTO")
 public class DestinationS3DTO extends DestinationDTO {
+    @Id
+    private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     private String accessKeyId;
 
@@ -115,5 +133,12 @@ public class DestinationS3DTO extends DestinationDTO {
 
     public void setS3PathFormat(String s3PathFormat) {
         this.s3PathFormat = s3PathFormat;
+    }
+
+
+    @InstanceName
+    @DependsOnProperties({"s3BucketName"})
+    public String getInstanceName(MetadataTools metadataTools) {
+        return metadataTools.format(s3BucketName);
     }
 }

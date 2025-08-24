@@ -1,16 +1,16 @@
 package com.company.airbytedemo.entity;
 
-import com.company.airbytedemo.converter.DestinationDTOConverter;
 import com.company.airbytedemo.dto.DestinationDTO;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.metamodel.annotation.Ddl;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "DESTINATION_TEST")
+@Table(name = "DESTINATION_TEST", indexes = {
+        @Index(name = "IDX_DESTINATION_TEST_RAW_CONFIG", columnList = "RAW_CONFIG_ID")
+})
 @Entity
 public class DestinationTest {
     @JmixGeneratedValue
@@ -30,7 +30,7 @@ public class DestinationTest {
     @Column(name = "DESTINATION_TYPE", nullable = false)
     private String destinationType;
 
-    @Column(name = "RAW_CONFIG", nullable = false)
+    @Column(name = "RAW_CONFIG")
     @Lob
     private DestinationDTO rawConfig;
 
