@@ -24,7 +24,7 @@ public class DestinationDTOConverter implements AttributeConverter<DestinationDT
             throw new IllegalStateException("EntitySerialization not available");
         }
         
-        return entitySerialization.toJson(attribute, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        return entitySerialization.toJson(attribute, null, EntitySerializationOption.SERIALIZE_NULLS );
     }
 
     @Override
@@ -36,6 +36,6 @@ public class DestinationDTOConverter implements AttributeConverter<DestinationDT
             throw new IllegalStateException("EntitySerialization not available");
         }
         
-        return entitySerialization.entityFromJson(dbData, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        return entitySerialization.entityFromJson(dbData, null, EntitySerializationOption.SERIALIZE_NULLS);
     }
 }

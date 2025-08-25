@@ -18,7 +18,7 @@ import java.util.Locale;
 @DatatypeDef(
         id = "destinationDTO",
         javaClass = DestinationDTO.class,
-        defaultForClass = false// ← QUAN TRỌNG: set false để không xung đột với JPA AttributeConverter
+        defaultForClass = true// ← QUAN TRỌNG: set false để không xung đột với JPA AttributeConverter
 )
 @Ddl("TEXT")
 public class DestinationDTODataType implements Datatype<DestinationDTO> {
@@ -32,7 +32,7 @@ public class DestinationDTODataType implements Datatype<DestinationDTO> {
             return value.toString(); // Fallback
         }
         
-        return entitySerialization.toJson(value, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+        return entitySerialization.toJson(value, null, EntitySerializationOption.SERIALIZE_NULLS);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DestinationDTODataType implements Datatype<DestinationDTO> {
         }
         
         try {
-            return entitySerialization.entityFromJson(value, null, EntitySerializationOption.SERIALIZE_INSTANCE_NAME);
+            return entitySerialization.entityFromJson(value, null, EntitySerializationOption.SERIALIZE_NULLS);
         } catch (Exception e) {
             throw new ParseException("Cannot parse DestinationDTO: " + e.getMessage(), 0);
         }
