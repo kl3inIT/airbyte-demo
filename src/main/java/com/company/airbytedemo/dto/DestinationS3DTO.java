@@ -3,6 +3,7 @@ package com.company.airbytedemo.dto;
 import com.airbyte.api.models.shared.DestinationS3S3BucketRegion;
 import com.company.airbytedemo.dto.enums.DestinationS3BucketRegion;
 import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jmix.core.MetadataTools;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.JmixId;
@@ -33,6 +34,7 @@ public class DestinationS3DTO extends DestinationDTO {
         this.id = id;
     }
 
+    @JsonProperty("access_key_id")
     private String accessKeyId;
     private String fileNamePattern;
     private String format;
@@ -49,6 +51,7 @@ public class DestinationS3DTO extends DestinationDTO {
     private String s3PathFormat;
     private String secretAccessKey;
 
+    @JsonProperty("format")
     private S3FormatConfig s3FormatConfig;
 
     public S3FormatConfig getS3FormatConfig() {

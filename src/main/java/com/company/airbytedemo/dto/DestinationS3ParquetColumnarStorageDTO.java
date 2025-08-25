@@ -1,10 +1,30 @@
 package com.company.airbytedemo.dto;
 
 import com.company.airbytedemo.dto.enums.DestinationS3SchemasCompressionCodec;
+import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.JmixId;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+
+import java.util.UUID;
 
 @JmixEntity
 public class DestinationS3ParquetColumnarStorageDTO extends S3FormatConfig {
+
+    @JmixId
+    @JmixGeneratedValue
+    private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setCompressionCodec(String compressionCodec) {
+        this.compressionCodec = compressionCodec;
+    }
 
     private Long blockSizeMb;
 

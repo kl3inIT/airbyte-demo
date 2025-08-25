@@ -15,6 +15,7 @@ import io.jmix.flowui.view.Target;
 import io.jmix.flowui.view.ViewComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 @FragmentDescriptor("destination-s3-fragment.xml")
 @RendererItemContainer("destinationDTODc")
 public class DestinationS3Fragment extends FragmentRenderer<VerticalLayout, DestinationS3DTO> {
@@ -59,6 +60,9 @@ public class DestinationS3Fragment extends FragmentRenderer<VerticalLayout, Dest
         // Initialize format config containers
         initializeFormatContainers(item);
         
+        // Load existing format config từ main DTO
+        loadFormatConfigFromMainDTO();
+        
         // Set tab visibility based on current format
         if (item != null && item.getFormat() != null) {
             visibleByFormat(item.getFormat().toString());
@@ -99,7 +103,23 @@ public class DestinationS3Fragment extends FragmentRenderer<VerticalLayout, Dest
     @Subscribe(id = "destinationDTODc", target = Target.DATA_CONTAINER)
     public void onDestinationDTODcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<DestinationS3DTO> event) {
         if ("format".equals(event.getProperty())) {
+            // Save current format config trước khi chuyển format
+            saveCurrentFormatConfigBeforeSwitch();
+            
             visibleByFormat(event.getValue() != null ? event.getValue().toString() : null);
+        }
+    }
+
+    /**
+     * Lưu current format config vào main DTO trước khi switch format
+     */
+    private void saveCurrentFormatConfigBeforeSwitch() {
+        DestinationS3DTO item = getItem();
+        if (item != null) {
+            S3FormatConfig currentConfig = getCurrentFormatConfig();
+            if (currentConfig != null) {
+                item.setS3FormatConfig(currentConfig);
+            }
         }
     }
 
@@ -165,7 +185,30 @@ public class DestinationS3Fragment extends FragmentRenderer<VerticalLayout, Dest
         DestinationS3DTO item = getItem();
         if (item != null) {
             S3FormatConfig currentConfig = getCurrentFormatConfig();
-            item.setS3FormatConfig(currentConfig);
+            if (currentConfig != null) {
+                item.setS3FormatConfig(currentConfig);
+            }
+        }
+    }
+
+    /**
+     * Load format config từ main DTO vào các tab containers
+     */
+    private void loadFormatConfigFromMainDTO() {
+        DestinationS3DTO item = getItem();
+        if (item == null || item.getS3FormatConfig() == null) return;
+        
+        S3FormatConfig existingConfig = item.getS3FormatConfig();
+        
+        // Set vào container tương ứng với type của existing config
+        if (existingConfig instanceof DestinationS3CSVCommaSeparatedValuesDTO csv) {
+            destinationS3CSVDc.setItem(csv);
+        } else if (existingConfig instanceof DestinationS3JSONLinesNewlineDelimitedJSONDTO json) {
+            destinationS3JsonDc.setItem(json);
+        } else if (existingConfig instanceof DestinationS3AvroApacheAvroDTO avro) {
+            destinationS3ArvoDc.setItem(avro);
+        } else if (existingConfig instanceof DestinationS3ParquetColumnarStorageDTO parquet) {
+            destinationS3ParquetDc.setItem(parquet);
         }
     }
 }

@@ -1,10 +1,26 @@
 package com.company.airbytedemo.dto;
 
 import com.company.airbytedemo.dto.enums.DestinationS3CompressionCodec;
+import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.JmixId;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+
+import java.util.UUID;
 
 @JmixEntity
 public class DestinationS3AvroApacheAvroDTO extends S3FormatConfig {
+
+    @JmixId
+    @JmixGeneratedValue
+    private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     private String codec;
 
