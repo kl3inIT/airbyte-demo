@@ -18,7 +18,7 @@ import java.util.Locale;
 @DatatypeDef(
         id = "destinationDTO",
         javaClass = DestinationDTO.class,
-        defaultForClass = true  // ← Thay đổi này
+        defaultForClass = false// ← QUAN TRỌNG: set false để không xung đột với JPA AttributeConverter
 )
 @Ddl("TEXT")
 public class DestinationDTODataType implements Datatype<DestinationDTO> {

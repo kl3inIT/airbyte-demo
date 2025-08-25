@@ -19,7 +19,6 @@
                 <textField property="s3Endpoint"/>
                 <textField property="s3PathFormat"/>
                 <textField property="secretAccessKey"/>
-                <textField property="workplaceId"/>
             </formLayout>
         </vbox>
     </content>

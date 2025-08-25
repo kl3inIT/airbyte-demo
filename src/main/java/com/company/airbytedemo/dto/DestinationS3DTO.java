@@ -14,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class DestinationS3DTO extends DestinationDTO {
 
     @JmixId
+    @JmixGeneratedValue
     private UUID id;
 
     public UUID getId() {
@@ -32,25 +34,19 @@ public class DestinationS3DTO extends DestinationDTO {
     }
 
     private String accessKeyId;
-
     private String fileNamePattern;
-
     private String format;
-
     private String roleArn;
-
+    
     @NotNull
     private String s3BucketName;
-
+    
     @NotNull
     private String s3BucketPath;
-
+    
     private String s3BucketRegion;
-
     private String s3Endpoint;
-
     private String s3PathFormat;
-
     private String secretAccessKey;
 
     public DestinationS3OutputFormatType getFormat() {
@@ -137,10 +133,35 @@ public class DestinationS3DTO extends DestinationDTO {
         this.s3PathFormat = s3PathFormat;
     }
 
-
     @InstanceName
     @DependsOnProperties({"s3BucketName"})
     public String getInstanceName(MetadataTools metadataTools) {
         return metadataTools.format(s3BucketName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DestinationS3DTO that = (DestinationS3DTO) o;
+        return Objects.equals(this.getId(), that.getId()) &&
+               Objects.equals(accessKeyId, that.accessKeyId) &&
+               Objects.equals(fileNamePattern, that.fileNamePattern) &&
+               Objects.equals(format, that.format) &&
+               Objects.equals(roleArn, that.roleArn) &&
+               Objects.equals(s3BucketName, that.s3BucketName) &&
+               Objects.equals(s3BucketPath, that.s3BucketPath) &&
+               Objects.equals(s3BucketRegion, that.s3BucketRegion) &&
+               Objects.equals(s3Endpoint, that.s3Endpoint) &&
+               Objects.equals(s3PathFormat, that.s3PathFormat) &&
+               Objects.equals(secretAccessKey, that.secretAccessKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), this.getId(), accessKeyId, fileNamePattern, format,
+                          roleArn, s3BucketName, s3BucketPath, s3BucketRegion, 
+                          s3Endpoint, s3PathFormat, secretAccessKey);
     }
 }
