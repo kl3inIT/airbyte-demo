@@ -1,8 +1,8 @@
-package com.company.airbytedemo.dto;
+package com.company.airbytedemo.connector.destinations.aws.s3.dto;
 
 import com.airbyte.api.models.shared.DestinationS3S3BucketRegion;
-import com.company.airbytedemo.dto.enums.DestinationS3OutputFormatType;
-import com.company.airbytedemo.dto.enums.DestinationS3BucketRegion;
+import com.company.airbytedemo.connector.destinations.aws.s3.enums.DestinationS3OutputFormatType;
+import com.company.airbytedemo.connector.destinations.aws.s3.enums.DestinationS3BucketRegion;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.validation.constraints.NotNull;
 

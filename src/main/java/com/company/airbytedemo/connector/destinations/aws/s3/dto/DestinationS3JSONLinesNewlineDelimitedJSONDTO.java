@@ -1,11 +1,12 @@
-package com.company.airbytedemo.dto;
+package com.company.airbytedemo.connector.destinations.aws.s3.dto;
 
-import com.company.airbytedemo.dto.enums.DestinationS3CompressionTypeE;
-import com.company.airbytedemo.dto.enums.DestinationS3FlatteningType;
+import com.company.airbytedemo.connector.destinations.aws.s3.enums.DestinationS3CompressionTypeE;
+import com.company.airbytedemo.connector.destinations.aws.s3.enums.DestinationS3FlatteningType;
+import com.company.airbytedemo.connector.destinations.aws.s3.S3FormatConfig;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3JSONLinesNewlineDelimitedJSONDTO implements S3FormatConfig{
+public class DestinationS3JSONLinesNewlineDelimitedJSONDTO implements S3FormatConfig {
 
     private String compression;
 
