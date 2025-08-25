@@ -1,10 +1,14 @@
 package com.company.airbytedemo.view.destinationtest;
 
+import com.airbyte.api.models.shared.DestinationResponse;
+import com.airbyte.api.models.shared.DestinationS3;
 import com.company.airbytedemo.dto.DestinationDTO;
 import com.company.airbytedemo.dto.DestinationPosgresDTO;
 import com.company.airbytedemo.dto.DestinationS3DTO;
+import com.company.airbytedemo.dto.S3FormatConfig;
 import com.company.airbytedemo.entity.DestinationTest;
 import com.company.airbytedemo.entity.DestinationType;
+import com.company.airbytedemo.service.AirbyteService;
 import com.company.airbytedemo.view.destinationtest.fragment.DestinationPostgresFragment;
 import com.company.airbytedemo.view.destinationtest.fragment.DestinationS3Fragment;
 import com.company.airbytedemo.view.main.MainView;
@@ -13,6 +17,7 @@ import com.vaadin.flow.router.Route;
 import io.jmix.core.EntitySerialization;
 import io.jmix.core.Metadata;
 import io.jmix.flowui.Fragments;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
@@ -39,11 +44,13 @@ public class DestinationTestDetailView extends StandardDetailView<DestinationTes
     @Autowired
     private Metadata metadata;
     @Autowired
-    private EntitySerialization entitySerialization;
+    private AirbyteService airbyteService;
 
     // giữ reference fragment để lấy DTO khi lưu
     private DestinationS3Fragment currentS3Fragment;
     private DestinationPostgresFragment currentPostgresFragment;
+    @Autowired
+    private Notifications notifications;
 
     @Subscribe
     public void onQueryParametersChange(final QueryParametersChangeEvent event) {
@@ -123,6 +130,7 @@ public class DestinationTestDetailView extends StandardDetailView<DestinationTes
             case S3 -> {
                 if (currentS3Fragment != null && currentS3Fragment.getItem() != null) {
                     DestinationS3DTO dto = currentS3Fragment.getItem();
+                    currentS3Fragment.updateFormatConfig();
 //                    DestinationS3DTO fresh = deepCopy(src);
 //                    e.setRawConfig(null);
 //                    fresh.setId(UUID.randomUUID());
@@ -130,7 +138,15 @@ public class DestinationTestDetailView extends StandardDetailView<DestinationTes
                     // Force DataContext to recognize the change
                     DataContext dataContext = getViewData().getDataContext();
                     dataContext.setModified(e, true);
-
+                    DestinationResponse response = airbyteService.createDestination(e.getName(), dto, (S3FormatConfig) dto.getS3FormatConfig());
+                    if (response == null) {
+                        notifications.create("Airbyte create destination failed")
+                                .withType(Notifications.Type.ERROR).show();
+                        event.preventSave();
+                    }
+//                    String rawConfigJson = objectMapper.writeValueAsString(response.configuration().value());
+//                    destination.setRawConfig(rawConfigJson);
+//                    dataManager.save(destination);
                 }
             }
             case POSTGRES -> {
