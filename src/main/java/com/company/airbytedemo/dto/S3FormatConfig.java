@@ -1,4 +1,7 @@
 package com.company.airbytedemo.dto;
 
-public interface S3FormatConfig {
+import io.jmix.core.metamodel.annotation.JmixEntity;
+
+@JmixEntity
+public class S3FormatConfig {
 }

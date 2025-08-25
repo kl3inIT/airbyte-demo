@@ -4,7 +4,7 @@ import com.company.airbytedemo.dto.enums.DestinationS3CompressionCodec;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3AvroApacheAvroDTO implements S3FormatConfig {
+public class DestinationS3AvroApacheAvroDTO extends S3FormatConfig {
 
     private String codec;
 

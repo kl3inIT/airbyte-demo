@@ -49,6 +49,16 @@ public class DestinationS3DTO extends DestinationDTO {
     private String s3PathFormat;
     private String secretAccessKey;
 
+    private S3FormatConfig s3FormatConfig;
+
+    public S3FormatConfig getS3FormatConfig() {
+        return s3FormatConfig;
+    }
+
+    public void setS3FormatConfig(S3FormatConfig s3FormatConfig) {
+        this.s3FormatConfig = s3FormatConfig;
+    }
+
     public DestinationS3OutputFormatType getFormat() {
         return format == null ? null : DestinationS3OutputFormatType.fromId(format);
     }

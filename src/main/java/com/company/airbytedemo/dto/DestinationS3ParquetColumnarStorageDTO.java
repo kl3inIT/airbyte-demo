@@ -4,7 +4,7 @@ import com.company.airbytedemo.dto.enums.DestinationS3SchemasCompressionCodec;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3ParquetColumnarStorageDTO implements S3FormatConfig {
+public class DestinationS3ParquetColumnarStorageDTO extends S3FormatConfig {
 
     private Long blockSizeMb;
 

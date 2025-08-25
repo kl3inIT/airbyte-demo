@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <fragment xmlns="http://jmix.io/schema/flowui/fragment">
     <data>
-        <instance id="destinationDTODc" class="com.company.airbytedemo.dto.DestinationS3DTO" >
+        <instance id="destinationDTODc" class="com.company.airbytedemo.dto.DestinationS3DTO">
             <loader id="destinationDTODl"/>
             <fetchPlan extends="_base"/>
+        </instance>
+        <instance id="destinationS3CSVDc" class="com.company.airbytedemo.dto.DestinationS3CSVCommaSeparatedValuesDTO">
+        </instance>
+        <instance id="destinationS3JsonDc"
+                  class="com.company.airbytedemo.dto.DestinationS3JSONLinesNewlineDelimitedJSONDTO">
+        </instance>
+        <instance id="destinationS3ArvoDc" class="com.company.airbytedemo.dto.DestinationS3AvroApacheAvroDTO">
+        </instance>
+        <instance id="destinationS3ParquetDc"
+                  class="com.company.airbytedemo.dto.DestinationS3ParquetColumnarStorageDTO">
         </instance>
     </data>
     <content>
@@ -11,15 +21,65 @@
             <formLayout id="destinationS3DTOForm" dataContainer="destinationDTODc">
                 <textField property="accessKeyId"/>
                 <textField property="fileNamePattern"/>
-                <select property="format"/>
+                <comboBox property="format"/>
                 <textField property="roleArn"/>
                 <textField property="s3BucketName"/>
                 <textField property="s3BucketPath"/>
-                <select property="s3BucketRegion"/>
+                <comboBox property="s3BucketRegion"/>
                 <textField property="s3Endpoint"/>
                 <textField property="s3PathFormat"/>
-                <textField property="secretAccessKey"/>
+                <passwordField property="secretAccessKey"/>
             </formLayout>
+
+            <!-- Format Configuration TabSheet -->
+            <vbox>
+                <tabSheet id="formatTabSheet" width="100%">
+                    <!-- CSV -->
+                    <tab id="csvTab" label="Cấu hình CSV: Comma-Separated Values">
+                        <vbox>
+                            <formLayout id="csvForm" dataContainer="destinationS3CSVDc">
+                                <comboBox id="csvCompressionField" property="compression" label="Compression"/>
+                                <comboBox id="csvFlatteningField" property="flattening" label="Flattening"/>
+                            </formLayout>
+                        </vbox>
+                    </tab>
+
+                    <!-- JSONL -->
+                    <tab id="jsonTab" label="Cấu hình JSON Lines: Newline-delimited JSON">
+                        <vbox>
+                            <formLayout id="jsonForm" dataContainer="destinationS3JsonDc">
+                                <comboBox id="jsonCompressionField" property="compression" label="Compression"/>
+                                <comboBox id="jsonFlatteningField" property="flattening" label="Flattening"/>
+                            </formLayout>
+                        </vbox>
+                    </tab>
+
+                    <!-- AVRO -->
+                    <tab id="arvoTab" label="Cấu hình Avro: Apache Avro">
+                        <vbox>
+                            <formLayout id="arvoForm" dataContainer="destinationS3ArvoDc">
+                                <comboBox id="avroCodecField" property="codec" label="Codec"/>
+                            </formLayout>
+                        </vbox>
+                    </tab>
+
+                    <!-- PARQUET -->
+                    <tab id="parquetTab" label="Cấu hình Parquet: Columnar Storage">
+                        <vbox>
+                            <formLayout id="parquetForm" dataContainer="destinationS3ParquetDc">
+                                <numberField id="pqBlockSizeMbField" property="blockSizeMb" label="Block Size (MB)"/>
+                                <comboBox id="pqCompressionCodecField" property="compressionCodec"
+                                          label="Compression Codec"/>
+                                <numberField id="pqDictionaryPageSizeKbField" property="dictionaryPageSizeKb"
+                                             label="Dictionary Page Size (KB)"/>
+                                <numberField id="pqMaxPaddingSizeMbField" property="maxPaddingSizeMb"
+                                             label="Max Padding Size (MB)"/>
+                                <numberField id="pqPageSizeKbField" property="pageSizeKb" label="Page Size (KB)"/>
+                            </formLayout>
+                        </vbox>
+                    </tab>
+                </tabSheet>
+            </vbox>
         </vbox>
     </content>
 </fragment>

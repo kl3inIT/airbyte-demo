@@ -59,6 +59,7 @@ public class DestinationDetailView extends StandardDetailView<Destination> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         Destination entity = destinationDc.getItemOrNull();
+        formatTabSheet.setVisible(false);
         try {
             var parsed = DestinationS3Parser.parse(
                     entity != null ? entity.getRawConfig() : null,

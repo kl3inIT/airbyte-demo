@@ -5,7 +5,7 @@ import com.company.airbytedemo.dto.enums.DestinationS3FlatteningType;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 @JmixEntity
-public class DestinationS3CSVCommaSeparatedValuesDTO implements S3FormatConfig {
+public class DestinationS3CSVCommaSeparatedValuesDTO extends S3FormatConfig {
 
     private String compression;
 
