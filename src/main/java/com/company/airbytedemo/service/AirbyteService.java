@@ -34,16 +34,6 @@ public class AirbyteService {
     @Value("${airbyte.workspace.id}")
     private String workspaceId;
 
-    @Value("${airbyte.dest.s3.name:MinIO-dest}")
-    private String s3DestName;
-
-    @Autowired
-    private EntitySerialization entitySerialization;
-
-
-    // API endpoint MinIO: http://host:9000  (KHÔNG phải 9001)
-    @Value("${airbyte.dest.s3.endpoint}")
-    private String s3Endpoint;
 
     public AirbyteService(Airbyte airbyte) {
         this.airbyte = airbyte;
