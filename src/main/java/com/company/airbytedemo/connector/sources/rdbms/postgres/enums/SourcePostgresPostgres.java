@@ -1,16 +1,16 @@
-package com.company.airbytedemo.entity;
+package com.company.airbytedemo.connector.sources.rdbms.postgres.enums;
+
 import io.jmix.core.metamodel.datatype.EnumClass;
 
 import org.springframework.lang.Nullable;
 
 
-public enum DestinationType implements EnumClass<String> {
-
-    S3("s3");
+public enum SourcePostgresPostgres implements EnumClass<String> {
+    POSTGRES("postgres");
 
     private final String id;
 
-    DestinationType(String id) {
+    SourcePostgresPostgres(String id) {
         this.id = id;
     }
 
@@ -19,8 +19,8 @@ public enum DestinationType implements EnumClass<String> {
     }
 
     @Nullable
-    public static DestinationType fromId(String id) {
-        for (DestinationType at : DestinationType.values()) {
+    public static SourcePostgresPostgres fromId(String id) {
+        for (SourcePostgresPostgres at : SourcePostgresPostgres.values()) {
             if (at.getId().equals(id)) {
                 return at;
             }

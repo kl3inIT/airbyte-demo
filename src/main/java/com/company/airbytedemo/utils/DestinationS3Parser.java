@@ -1,7 +1,7 @@
 package com.company.airbytedemo.utils;
 
-import com.company.airbytedemo.dto.*;
-import com.company.airbytedemo.dto.enums.*;
+import com.company.airbytedemo.connector.destinations.aws.s3.dto.*;
+import com.company.airbytedemo.connector.destinations.aws.s3.enums.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jmix.core.DataManager;

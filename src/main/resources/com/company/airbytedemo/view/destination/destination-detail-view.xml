@@ -8,17 +8,17 @@
             <fetchPlan extends="_base"/>
             <loader id="destinationDl"/>
         </instance>
-        <instance id="destinationS3DTODc" class="com.company.airbytedemo.dto.DestinationS3DTO">
+        <instance id="destinationS3DTODc" class="com.company.airbytedemo.connector.destinations.aws.s3.dto.DestinationS3DTO">
         </instance>
-        <instance id="destinationS3CSVDc" class="com.company.airbytedemo.dto.DestinationS3CSVCommaSeparatedValuesDTO">
+        <instance id="destinationS3CSVDc" class="com.company.airbytedemo.connector.destinations.aws.s3.dto.DestinationS3CSVCommaSeparatedValuesDTO">
         </instance>
         <instance id="destinationS3JsonDc"
-                  class="com.company.airbytedemo.dto.DestinationS3JSONLinesNewlineDelimitedJSONDTO">
+                  class="com.company.airbytedemo.connector.destinations.aws.s3.dto.DestinationS3JSONLinesNewlineDelimitedJSONDTO">
         </instance>
-        <instance id="destinationS3ArvoDc" class="com.company.airbytedemo.dto.DestinationS3AvroApacheAvroDTO">
+        <instance id="destinationS3ArvoDc" class="com.company.airbytedemo.connector.destinations.aws.s3.dto.DestinationS3AvroApacheAvroDTO">
         </instance>
         <instance id="destinationS3ParquetDc"
-                  class="com.company.airbytedemo.dto.DestinationS3ParquetColumnarStorageDTO">
+                  class="com.company.airbytedemo.connector.destinations.aws.s3.dto.DestinationS3ParquetColumnarStorageDTO">
         </instance>
 
     </data>

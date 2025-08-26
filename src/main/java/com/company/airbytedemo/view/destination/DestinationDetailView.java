@@ -1,7 +1,8 @@
 package com.company.airbytedemo.view.destination;
 
 import com.airbyte.api.models.shared.DestinationResponse;
-import com.company.airbytedemo.dto.*;
+import com.company.airbytedemo.connector.destinations.aws.s3.S3FormatConfig;
+import com.company.airbytedemo.connector.destinations.aws.s3.dto.*;
 import com.company.airbytedemo.entity.Destination;
 import com.company.airbytedemo.service.AirbyteService;
 import com.company.airbytedemo.utils.DestinationS3Parser;
