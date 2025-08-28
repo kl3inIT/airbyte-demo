@@ -31,7 +31,7 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <dropdownButton id="createBtn" icon="PLUS" text="msg://create" themeNames="icon">
+            <dropdownButton id="createBtn" icon="PLUS" text="msg://create" themeNames="primary" >
                 <items>
                     <actionItem id="createDb"   ref="sourcesDataGrid.createDb"/>
                     <actionItem id="createFile" ref="sourcesDataGrid.createFile"/>
